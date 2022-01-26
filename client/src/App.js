@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 
+import Game from './Game';
 import { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
@@ -19,6 +20,9 @@ function App() {
         <Switch>
           <Route path="/testing">
             <h1>Test Route</h1>
+          </Route>
+          <Route path = "/pacman">
+            <Game />
           </Route>
           <Route path="/">
             <h1>Page Count: {count}</h1>
