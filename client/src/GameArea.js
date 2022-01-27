@@ -27,6 +27,8 @@ function GameArea(){
     context.scale(2,2);
     contextRef.current = context
 
+    
+
   },[])
 
   return (

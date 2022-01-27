@@ -18,9 +18,10 @@ function PlayerCanvas(){
     canvas.style.height = `${window.innerHeight*(16/20)}px`
     // canvas.style.backgroundColor = "blue";
     canvas.style.position = "absolute";
+    // canvas.style.border = '10px solid yellow'
     canvas.style.left = `${window.innerWidth*(5/20)}px`;
     canvas.style.top = `${window.innerHeight*(2/20)}px`;
-    canvas.style['z-index'] = 2;
+    canvas.style['z-index'] = 10;
  
     const context = canvas.getContext("2d");
     context.scale(2,2);
@@ -77,8 +78,8 @@ function PlayerCanvas(){
   }
 
   const movePac = () => {
-    console.log(pacManRef.current.x)
-    console.log(window.innerWidth*(5/20))
+    // console.log(pacManRef.current.x)
+    // console.log(window.innerWidth*(5/20))
     pacManRef.current.x += pacManRef.current.movex
     pacManRef.current.y += pacManRef.current.movey
 
@@ -89,21 +90,18 @@ function PlayerCanvas(){
   }
 
   const boundaryLeft = () => {
-    console.log(pacManRef.current.x) 
     if(pacManRef.current.x < 0-pacManRef.current.w){
       pacManRef.current.x = SCREEN_WIDTH 
     }
   }
 
   const boundaryRight = () => {
-    console.log(pacManRef.current.x) 
     if(pacManRef.current.x > SCREEN_WIDTH+pacManRef.current.w){
       pacManRef.current.x = 0 
     }
   }
 
   const boundaryUp = () => {
-    console.log(pacManRef.current.x) 
     if(pacManRef.current.y < 0-pacManRef.current.h){
       pacManRef.current.y = SCREEN_HEIGHT 
     }
@@ -111,7 +109,6 @@ function PlayerCanvas(){
 
 
   const boundaryDown = () => {
-    console.log(pacManRef.current.x) 
     if(pacManRef.current.y > SCREEN_HEIGHT+pacManRef.current.h){
       pacManRef.current.y = 0
     }
