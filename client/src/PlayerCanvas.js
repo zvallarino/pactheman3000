@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-function PlayerCanvas(){
+function PlayerCanvas({wallRef}){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
@@ -46,16 +46,36 @@ function PlayerCanvas(){
         contextRef.current.drawImage(pacManImg,pacManRef.current.x,pacManRef.current.y,pacManRef.current.w,pacManRef.current.h)
       }
     }
+    
+
+  
+    function boundaryWall(){
+      let i = 1
+      for (let key in wallRef.current){
+          console.log(`x${i}`===`${key}`)
+            if(key == `x${i}`){
+
+              console.log('found it')
+            }
+            console.log(wallRef.current[key])
+            console.log(key)
+            
+      }
+  }
 
     const update = () => {
       drawPacMan()
+      boundaryWall()
       movePac()
       requestAnimationFrame(update)
     }
 
+ 
     update()
 
   },[])
+
+
 
   const moveRight = () => {
     pacManRef.current.movex = 10
@@ -113,6 +133,8 @@ function PlayerCanvas(){
       pacManRef.current.y = 0
     }
   }
+
+
 
 
   

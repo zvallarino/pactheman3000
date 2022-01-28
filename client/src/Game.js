@@ -5,10 +5,12 @@ import PlayerCanvas from "./PlayerCanvas";
 
 function Game(){
 
+  const wallRef = useRef({})
+
   return (
     <>
-    <PlayerCanvas />
-    <BlocksForGameBoard />
+    <PlayerCanvas  wallRef = {wallRef}/>
+    <BlocksForGameBoard wallRef = {wallRef}/>
     <GameArea />
     </>
   )

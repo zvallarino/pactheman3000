@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-function BlocksForGameBoard(){
+function BlocksForGameBoard({wallRef}){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
@@ -27,7 +27,7 @@ function BlocksForGameBoard(){
     contextRef.current = context
 
     const update = () => {
-      createBoard(4)
+      gameBoardLoop(gameBoard)
       // drawRectangle()
 
     }
@@ -35,6 +35,52 @@ function BlocksForGameBoard(){
     update()
 
   },[])
+
+  let gameBoard = [
+    [0,0,0,0],
+    [0,0,1,0],
+    [0,0,1,0],
+    [0,0,0,0]
+  ]
+
+  const drawRectangle = (xposition,yposition,colorZ,counter) => {
+
+    // console.log(wallRef.current)
+    // // console.log(numberZ)
+    if(!counter){
+    contextRef.current.beginPath();
+    contextRef.current.rect(xposition, yposition, SCREEN_WIDTH * (5/20), SCREEN_HEIGHT * (5/20));
+    contextRef.current.fillStyle = colorZ
+    contextRef.current.fill();}
+
+    if(counter){
+      contextRef.current.beginPath();
+      contextRef.current.rect(xposition, yposition, SCREEN_WIDTH * (5/20), SCREEN_HEIGHT * (5/20));
+      contextRef.current.fillStyle = colorZ
+      contextRef.current.fill();
+      wallRef.current[`x${counter}`] = xposition
+      wallRef.current[`y${counter}`] = yposition}
+  }
+
+  const gameBoardLoop = (arrayZ) =>{
+    let WallCounter = 0;
+    wallRef.current.width = SCREEN_WIDTH * (5/20)
+    wallRef.current.height = SCREEN_HEIGHT * (5/20)
+
+    for(let i = 0; i<arrayZ.length;i++){
+      let yStartPosition = (i/arrayZ.length)* SCREEN_HEIGHT;
+      for(let j = 0; j<arrayZ[i].length;j++){
+        let xStartPosition = (j/arrayZ[i].length)* SCREEN_WIDTH;
+        if(arrayZ[i][j]===0){
+          drawRectangle(xStartPosition,yStartPosition,"green",)}
+        if(arrayZ[i][j]===1){
+          WallCounter += 1;
+          drawRectangle(xStartPosition,yStartPosition,"blue",WallCounter)}
+      }
+    }
+  }
+
+
 
 
   class TimeMap{
@@ -46,29 +92,6 @@ function BlocksForGameBoard(){
     }
   }
 
-  
-
-  const createBoard = (numberZ) =>{
-    let i = 0
-    while(numberZ>0){
-      drawRectangle(i)
-      console.log(numberZ)
-      numberZ--
-      i++
-    }
-    
-  }
-
-  const drawRectangle = (numberZ) => {
-    console.log(numberZ)
-    contextRef.current.beginPath();
-    // contextRef.current.clearRect(0,0,canvasRef.current.width,canvasRef.current.height);  
-    contextRef.current.rect((numberZ*SCREEN_WIDTH * (5/20)), 0, SCREEN_WIDTH * (5/20), SCREEN_HEIGHT * (5/20));
-    contextRef.current.fillStyle = "green"
-    contextRef.current.fill();
-  }
-
-  const vertical
 
   return (
    <canvas
