@@ -34,6 +34,8 @@ function PlayerCanvas({wallRef}){
       h:SCREEN_HEIGHT*(2/20),
       movex:0,
       movey:0,
+      speedx:10,
+      speedy:10,
     }
 
     pacManRef.current = pacMan
@@ -48,25 +50,11 @@ function PlayerCanvas({wallRef}){
     }
     
 
-  
-    function boundaryWall(){
-      let i = 1
-      for (let key in wallRef.current){
-          console.log(`x${i}`===`${key}`)
-            if(key == `x${i}`){
-
-              console.log('found it')
-            }
-            console.log(wallRef.current[key])
-            console.log(key)
-            
-      }
-  }
 
     const update = () => {
       drawPacMan()
-      boundaryWall()
       movePac()
+      boundaryRightWall()
       requestAnimationFrame(update)
     }
 
@@ -75,26 +63,93 @@ function PlayerCanvas({wallRef}){
 
   },[])
 
+   
+  function boundaryLeftWall(){
+    let i = 1;
+    for (let key in wallRef.current){
+      if (`x${i}` in wallRef.current){
+       console.log(pacManRef.current.x+pacManRef.current.w)
+       if((pacManRef.current.x+pacManRef.current.w)<(wallRef.current[`x${i}`])){
+         console.log('not a wall')
+            }else{
+            pacManRef.current.x=wallRef.current[`x${i}`]-pacManRef.current.w
+            console.log('wall')
+              }
+      }
+      i++
+    }
+}
+
+function boundaryRightWall(){
+  let i = 1;
+  for (let key in wallRef.current){
+    if (`x${i}` in wallRef.current){
+     if((pacManRef.current.x)>(wallRef.current[`x${i}`]+wallRef.current["width"])){
+       console.log('not a wall')
+          }else{
+            pacManRef.current.x=wallRef.current[`x${i}`]+wallRef.current["width"]
+            }
+    }
+    i++
+  }
+}
+
+function boundaryTopWall(){
+let i = 0;
+for (let key in wallRef.current){
+
+  if (`y${i}` in wallRef.current){
+    if(pacManRef.current.y +pacManRef.current.h< wallRef.current[`y${i}`])
+{   console.log('not a wall') } else {
+  pacManRef.current.y =  wallRef.current[`y${i}`] - pacManRef.current.h
+    }
+
+  }
+  i++
+}
+}
+
+
+function boundaryBottomWall(){
+let i = 0;
+for (let key in wallRef.current){
+  console.log(wallRef.current)
+
+  if (`y${i}` in wallRef.current){
+    if(pacManRef.current.y > wallRef.current[`y${i}`] + wallRef.current[`height`] )
+{   console.log('not a wall') } else {
+  pacManRef.current.y =  wallRef.current[`y${i}`] + wallRef.current[`height`]
+    }
+  }
+  i++
+}
+}
+
 
 
   const moveRight = () => {
-    pacManRef.current.movex = 10
+    pacManRef.current.movex = pacManRef.current.speedx
     pacManRef.current.movey = 0
+
   }
 
   const moveLeft = () => {
-    pacManRef.current.movex = -10
+    pacManRef.current.movex = -pacManRef.current.speedx
     pacManRef.current.movey = 0
+
   }
 
   const moveDown = () => {
-    pacManRef.current.movey = 10
+    pacManRef.current.movey = pacManRef.current.speedy
     pacManRef.current.movex = 0
+
   }
 
   const moveUp= () => {
-    pacManRef.current.movey =  -10
+    pacManRef.current.movey =  -pacManRef.current.speedy
     pacManRef.current.movex = 0
+
+
   }
 
   const movePac = () => {
@@ -103,36 +158,38 @@ function PlayerCanvas({wallRef}){
     pacManRef.current.x += pacManRef.current.movex
     pacManRef.current.y += pacManRef.current.movey
 
-    boundaryLeft()
-    boundaryUp()
-    boundaryRight()
-    boundaryDown()
-  }
-
-  const boundaryLeft = () => {
-    if(pacManRef.current.x < 0-pacManRef.current.w){
-      pacManRef.current.x = SCREEN_WIDTH 
-    }
-  }
-
-  const boundaryRight = () => {
-    if(pacManRef.current.x > SCREEN_WIDTH+pacManRef.current.w){
-      pacManRef.current.x = 0 
-    }
-  }
-
-  const boundaryUp = () => {
-    if(pacManRef.current.y < 0-pacManRef.current.h){
-      pacManRef.current.y = SCREEN_HEIGHT 
-    }
-  }
+   
 
 
-  const boundaryDown = () => {
-    if(pacManRef.current.y > SCREEN_HEIGHT+pacManRef.current.h){
-      pacManRef.current.y = 0
-    }
+
+    // boundaryLeft()
+
   }
+
+  // const boundaryLeft = () => {
+  //   if(pacManRef.current.x < 0-pacManRef.current.w){
+  //     pacManRef.current.x = SCREEN_WIDTH 
+  //   }
+  // }
+
+  // const boundaryRight = () => {
+  //   if(pacManRef.current.x > SCREEN_WIDTH+pacManRef.current.w){
+  //     pacManRef.current.x = 0 
+  //   }
+  // }
+
+  // const boundaryUp = () => {
+  //   if(pacManRef.current.y < 0-pacManRef.current.h){
+  //     pacManRef.current.y = SCREEN_HEIGHT 
+  //   }
+  // }
+
+
+  // const boundaryDown = () => {
+  //   if(pacManRef.current.y > SCREEN_HEIGHT+pacManRef.current.h){
+  //     pacManRef.current.y = 0
+  //   }
+  // }
 
 
 
