@@ -5,6 +5,7 @@ function PlayerCanvas({wallRef}){
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
   const pacManRef = useRef(null)
+  const directionRef = useRef("notMoving")
   const imageRef = useRef("https://i.imgur.com/nz1gE0p.jpg")
 
   const SCREEN_WIDTH = window.innerWidth;
@@ -29,13 +30,13 @@ function PlayerCanvas({wallRef}){
 
     const pacMan = {
       x:100,
-      y:100,
+      y:SCREEN_HEIGHT*(10/20),
       w:SCREEN_WIDTH*(1.6/20),
       h:SCREEN_HEIGHT*(2/20),
       movex:0,
       movey:0,
-      speedx:10,
-      speedy:10,
+      speedx:5,
+      speedy:5,
     }
 
     pacManRef.current = pacMan
@@ -46,6 +47,8 @@ function PlayerCanvas({wallRef}){
       pacManImg.onload = function(){
         contextRef.current.clearRect(0,0,canvasRef.current.width,canvasRef.current.height);
         contextRef.current.drawImage(pacManImg,pacManRef.current.x,pacManRef.current.y,pacManRef.current.w,pacManRef.current.h)
+        contextRef.current.strokeStyle ='red';
+        contextRef.current.strokeRect(pacManRef.current.x,pacManRef.current.y,pacManRef.current.w,pacManRef.current.h)
       }
     }
     
@@ -54,7 +57,7 @@ function PlayerCanvas({wallRef}){
     const update = () => {
       drawPacMan()
       movePac()
-      boundaryRightWall()
+      boundaryUpDown()
       requestAnimationFrame(update)
     }
 
@@ -64,78 +67,143 @@ function PlayerCanvas({wallRef}){
   },[])
 
    
-  function boundaryLeftWall(){
+  function boundaryLeftRight(){
     let i = 1;
     for (let key in wallRef.current){
       if (`x${i}` in wallRef.current){
-       console.log(pacManRef.current.x+pacManRef.current.w)
-       if((pacManRef.current.x+pacManRef.current.w)<(wallRef.current[`x${i}`])){
+        if (`y${i}` in wallRef.current){
+       if(
+         (pacManRef.current.x+pacManRef.current.w)<(wallRef.current[`x${i}`])
+          ||
+          (pacManRef.current.x)>(wallRef.current[`x${i}`]+wallRef.current["width"])
+         ){
          console.log('not a wall')
             }else{
-            pacManRef.current.x=wallRef.current[`x${i}`]-pacManRef.current.w
-            console.log('wall')
+            borders(i)
               }
-      }
+      }}
       i++
     }
 }
 
-function boundaryRightWall(){
+function boundaryUpDown(){
   let i = 1;
   for (let key in wallRef.current){
     if (`x${i}` in wallRef.current){
-     if((pacManRef.current.x)>(wallRef.current[`x${i}`]+wallRef.current["width"])){
-       console.log('not a wall')
+      if (`y${i}` in wallRef.current){
+     if(
+      (pacManRef.current.y > wallRef.current[`y${i}`] + (wallRef.current[`height`]))
+      ||
+      pacManRef.current.y +pacManRef.current.h< wallRef.current[`y${i}`]
+      ||
+      (pacManRef.current.x+pacManRef.current.w)<(wallRef.current[`x${i}`])
+      ||
+      (pacManRef.current.x)>(wallRef.current[`x${i}`]+wallRef.current["width"])
+       ){
+        // console.log(pacManRef.current.y)
+        // console.log(wallRef.current[`y${i}`] + (wallRef.current[`height`]))
+      //  console.log('not a wall')
           }else{
-            pacManRef.current.x=wallRef.current[`x${i}`]+wallRef.current["width"]
+            borders(i)
+          // console.log("wall")
             }
-    }
+    }}
     i++
   }
-}
-
-function boundaryTopWall(){
-let i = 0;
-for (let key in wallRef.current){
-
-  if (`y${i}` in wallRef.current){
-    if(pacManRef.current.y +pacManRef.current.h< wallRef.current[`y${i}`])
-{   console.log('not a wall') } else {
-  pacManRef.current.y =  wallRef.current[`y${i}`] - pacManRef.current.h
     }
+    
 
+
+
+function borders(i){
+  if(directionRef.current === "right"){
+    pacManRef.current.x -=pacManRef.current.speedx
+    pacManRef.current.movex=0
+  }else if(directionRef.current === "left"){
+    pacManRef.current.x+=pacManRef.current.speedx
+    pacManRef.current.movex=0
+  }else if (directionRef.current === "up"){
+    pacManRef.current.y +=pacManRef.current.speedy
+    pacManRef.current.movey = 0
+  }else if(directionRef.current === "down"){
+    pacManRef.current.y -=pacManRef.current.speedy
+    pacManRef.current.movey = 0
   }
-  i++
-}
 }
 
-
-function boundaryBottomWall(){
-let i = 0;
-for (let key in wallRef.current){
-  console.log(wallRef.current)
-
-  if (`y${i}` in wallRef.current){
-    if(pacManRef.current.y > wallRef.current[`y${i}`] + wallRef.current[`height`] )
-{   console.log('not a wall') } else {
-  pacManRef.current.y =  wallRef.current[`y${i}`] + wallRef.current[`height`]
-    }
+function bordersUpAndDown(i){
+  console.log(i)
+  console.log(`y${i}`)
+  if(directionRef.current === "up"){
+    pacManRef.current.y=wallRef.current[`y${i}`]-pacManRef.current.h
   }
-  i++
 }
-}
+
+
+// function boundaryDown(){
+//   let i = 0;
+//   for (let key in wallRef.current){
+//     if (`y${i}` in wallRef.current){
+//       if(pacManRef.current.y +pacManRef.current.h< wallRef.current[`y${i}`])
+//   {   console.log('not a wall') } else {
+//     pacManRef.current.y =  wallRef.current[`y${i}`] - pacManRef.current.h
+//       }
+  
+//     }
+//     i++
+//   }
+//   }
+
+
+// function boundaryLeft(){
+//   let i = 1;
+//   for (let key in wallRef.current){
+//     if (`x${i}` in wallRef.current){
+      
+//      if((pacManRef.current.x)>(wallRef.current[`x${i}`]+wallRef.current["width"])
+      
+     
+//      ){
+//        console.log('not a wall')
+//           }else{
+//             pacManRef.current.x=wallRef.current[`x${i}`]+wallRef.current["width"]
+//             }
+//     }
+//     i++
+//   }
+// }
+
+
+
+
+// function boundaryUp(){
+// let i = 0;
+// for (let key in wallRef.current){
+//   console.log(wallRef.current)
+
+//   if (`y${i}` in wallRef.current){
+//     if(pacManRef.current.y > wallRef.current[`y${i}`] + wallRef.current[`height`] )
+// {   console.log('not a wall') } else {
+//   pacManRef.current.y =  wallRef.current[`y${i}`] + wallRef.current[`height`]
+//     }
+//   }
+//   i++
+// }
+// }
 
 
 
   const moveRight = () => {
     pacManRef.current.movex = pacManRef.current.speedx
     pacManRef.current.movey = 0
-
+    directionRef.current = "right"
   }
 
   const moveLeft = () => {
     pacManRef.current.movex = -pacManRef.current.speedx
     pacManRef.current.movey = 0
+
+    directionRef.current = "left"
 
   }
 
@@ -143,26 +211,26 @@ for (let key in wallRef.current){
     pacManRef.current.movey = pacManRef.current.speedy
     pacManRef.current.movex = 0
 
+    directionRef.current = "down"
+
   }
 
   const moveUp= () => {
     pacManRef.current.movey =  -pacManRef.current.speedy
     pacManRef.current.movex = 0
 
-
+    directionRef.current = "up"
   }
+  
+  const stopMoving= () => {
+    pacManRef.current.movey =  0
+    pacManRef.current.movex = 0
 
+    directionRef.current = "notMoving"
+  }
   const movePac = () => {
-    // console.log(pacManRef.current.x)
-    // console.log(window.innerWidth*(5/20))
     pacManRef.current.x += pacManRef.current.movex
     pacManRef.current.y += pacManRef.current.movey
-
-   
-
-
-
-    // boundaryLeft()
 
   }
 
@@ -199,10 +267,9 @@ for (let key in wallRef.current){
   
 
   const movementFunction = (e) => {
-    console.log(e)
+
     if(e.key === "d"){
       moveRight()
-      console.log("yo yo yo")
     }else if(e.key === "a"){
       moveLeft()
       
@@ -210,6 +277,8 @@ for (let key in wallRef.current){
       moveDown()
     }else if(e.key === "w"){
       moveUp()
+    }else if(e.key === "p"){
+      stopMoving()
     }
 
   }
