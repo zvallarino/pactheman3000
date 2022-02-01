@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import BlocksForGameBoard from "./BlocksForGameBoard";
 import GameArea from "./GameArea";
 import PlayerCanvas from "./PlayerCanvas";
+import OctopusCanvas from "./OctopusCanvas";
 
 function Game(){
 
@@ -10,6 +11,7 @@ function Game(){
   return (
     <>
     <PlayerCanvas  wallRef = {wallRef}/>
+    <OctopusCanvas wallRef = {wallRef}/>
     <BlocksForGameBoard wallRef = {wallRef}/>
     <GameArea />
     </>
