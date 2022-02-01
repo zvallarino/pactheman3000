@@ -33,7 +33,7 @@ function OctopusCanvas({wallRef}){
       h:SCREEN_HEIGHT*(2/20),
       movex:0,
       movey:0,
-      speedx:2,
+      speedx:5,
       speedy:5,
     }
 
@@ -61,7 +61,7 @@ function OctopusCanvas({wallRef}){
 
  
     update()
-    // moveUp(octupusRef)
+    moveUp(octupusRef)
     // moveRight(octupusRef)
     // moveLeft(octupusRef)
     // moveDown(octupusRef)
@@ -108,57 +108,8 @@ function OctopusCanvas({wallRef}){
 
   console.log(directionalPicker(currentDirection))
 
-
-function boundariesAll(refObject){
-  let i = 1;
-  for (let key in wallRef.current){
-    if (`x${i}` in wallRef.current){
-      if (`y${i}` in wallRef.current){
-     if(
-      (refObject.current.y > wallRef.current[`y${i}`] + (wallRef.current[`height`]))
-      ||
-      refObject.current.y +refObject.current.h< wallRef.current[`y${i}`]
-      ||
-      (refObject.current.x+refObject.current.w)<(wallRef.current[`x${i}`])
-      ||
-      (refObject.current.x)>(wallRef.current[`x${i}`]+wallRef.current["width"])
-       ){
-        // console.log("not a wall")
-          }else{
-            let currentDirection = currentIndex(directionRef.current)
-            console.log(directionRef.current)
-            let newDirection = directionalPicker(currentDirection)
-            console.log(newDirection)
-            console.log("wall")
-            //if it hits a wall, choose a new direction.
-            
-
-            }
-    }}
-    i++
-  }
-    }
-    
-
-
-
-function borders(i,refObject ){
-  if(directionRef.current === "right"){
-    refObject.current.x -=refObject.current.speedx
-    refObject.current.movex=0
-  }else if(directionRef.current === "left"){
-    refObject.current.x+=refObject.current.speedx
-    refObject.current.movex=0
-  }else if (directionRef.current === "up"){
-    refObject.current.y +=refObject.current.speedy
-    refObject.current.movey = 0
-  }else if(directionRef.current === "down"){
-    refObject.current.y -=refObject.current.speedy
-    refObject.current.movey = 0
-  }
-}
-
   const moveRight = (refObject) => {
+
     refObject.current.movex = refObject.current.speedx
     refObject.current.movey = 0
 
@@ -181,11 +132,89 @@ function borders(i,refObject ){
   }
 
   const moveUp = (refObject) => {
+  
     refObject.current.movey =  -refObject.current.speedy
     refObject.current.movex = 0
     directionRef.current = "up"
   }
   
+
+const moveOctupus = (directionIndex,refObject) =>{
+    let newDirection = directionalArray[directionIndex]
+    console.log(newDirection)
+    if(newDirection === "right"){
+      // borders()
+      moveRight(refObject)
+    }else if(newDirection === "left"){
+      // borders()
+      moveLeft(refObject)
+    }else if (newDirection === "up"){
+      // borders()
+      moveUp(refObject)
+    }else if(newDirection === "down"){
+      // borders()
+      moveDown(refObject)
+    }
+    return newDirection
+  }
+  
+
+
+function boundariesAll(refObject){
+  let i = 1;
+  for (let key in wallRef.current){
+    if (`x${i}` in wallRef.current){
+      if (`y${i}` in wallRef.current){
+     if(
+      (refObject.current.y > wallRef.current[`y${i}`] + (wallRef.current[`height`]))
+      ||
+      refObject.current.y +refObject.current.h< wallRef.current[`y${i}`]
+      ||
+      (refObject.current.x+refObject.current.w)<(wallRef.current[`x${i}`])
+      ||
+      (refObject.current.x)>(wallRef.current[`x${i}`]+wallRef.current["width"])
+       ){
+        // console.log("not a wall")
+          }else{
+            borders(refObject)
+            //if it hits a wall, choose a new direction.
+            
+
+            }
+    }}
+    i++
+  }
+    }
+    
+
+
+function borders(refObject ){
+  if(directionRef.current === "right"){
+    refObject.current.x -=refObject.current.speedx
+    refObject.current.movex=0
+    let currentDirection = currentIndex(directionRef.current)
+    let newDirection = directionalPicker(currentDirection)
+    moveOctupus(newDirection,refObject)
+  }else if(directionRef.current === "left"){
+    refObject.current.x+=refObject.current.speedx
+    refObject.current.movex=0
+    let currentDirection = currentIndex(directionRef.current)
+    let newDirection = directionalPicker(currentDirection)
+    moveOctupus(newDirection,refObject)
+  }else if (directionRef.current === "up"){
+    refObject.current.y +=refObject.current.speedy
+    refObject.current.movey = 0
+    let currentDirection = currentIndex(directionRef.current)
+    let newDirection = directionalPicker(currentDirection)
+    moveOctupus(newDirection,refObject)
+  }else if(directionRef.current === "down"){
+    refObject.current.y -=refObject.current.speedy
+    refObject.current.movey = 0
+    let currentDirection = currentIndex(directionRef.current)
+    let newDirection = directionalPicker(currentDirection)
+    moveOctupus(newDirection,refObject)
+  }
+}
 
   const moveObject = (refObject) => {
     refObject.current.x += refObject.current.movex
