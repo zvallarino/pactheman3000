@@ -37,12 +37,9 @@ function BlocksForGameBoard({wallRef}){
   },[])
 
   let gameBoard = [
-    [1,1,1,1,1,1],
-    [1,0,0,0,0,1],
-    [1,0,1,1,0,1],
-    [1,1,1,1,0,1],
-    [1,1,0,0,0,1],
-    [1,1,1,1,1,1]
+    [0,0,0,0,0],
+    [0,0,1,0,0],
+    [0,0,0,0,0],
   ]
 
   let gdWidth = gameBoard[0].length
@@ -63,15 +60,20 @@ function BlocksForGameBoard({wallRef}){
       contextRef.current.rect(xposition, yposition, SCREEN_WIDTH/gdWidth, SCREEN_HEIGHT/gbHeight);
       contextRef.current.fillStyle = colorZ
       contextRef.current.fill();
-      wallRef.current[`x${counter}`] = xposition
-      wallRef.current[`y${counter}`] = yposition}
+      wallRef.current[`wall${counter}`]={}
+      wallRef.current[`wall${counter}`].x=xposition
+      wallRef.current[`wall${counter}`].y=yposition
+      wallRef.current[`wall${counter}`].h=SCREEN_HEIGHT/gbHeight
+      wallRef.current[`wall${counter}`].w=SCREEN_WIDTH/gdWidth
+      wallRef.current[`wall${counter}`].color = colorZ
+    }
+     
   }
+
+  console.log(wallRef)
 
   const gameBoardLoop = (arrayZ) =>{
     let WallCounter = 0;
-
-    wallRef.current.width = SCREEN_WIDTH/gdWidth
-    wallRef.current.height = SCREEN_HEIGHT/gbHeight
 
     for(let i = 0; i<arrayZ.length;i++){
       let yStartPosition = (i/arrayZ.length)* SCREEN_HEIGHT;
@@ -80,8 +82,8 @@ function BlocksForGameBoard({wallRef}){
         if(arrayZ[i][j]===0){
           drawRectangle(xStartPosition,yStartPosition,"yellow",)}
         if(arrayZ[i][j]===1){
-          WallCounter += 1;
           drawRectangle(xStartPosition,yStartPosition,"blue",WallCounter)}
+          WallCounter += 1;
       }
     }
   }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 function PlayerCanvas({wallRef}){
 
@@ -49,13 +49,11 @@ function PlayerCanvas({wallRef}){
         contextRef.current.strokeRect(pacManRef.current.x,pacManRef.current.y,pacManRef.current.w,pacManRef.current.h)
       }
     }
-    
-
 
     const update = () => {
       drawPacMan()
-      movePac()
-      boundariesAll(pacManRef)
+      moveObject(pacManRef)
+      boundaries(pacManRef)
       requestAnimationFrame(update)
     }
  
@@ -63,29 +61,27 @@ function PlayerCanvas({wallRef}){
 
   },[])
 
-function boundariesAll(refObject){
+function boundaries(refObject){
   let i = 1;
   for (let key in wallRef.current){
-    if (`x${i}` in wallRef.current){
-      if (`y${i}` in wallRef.current){
-     if(
-      (refObject.current.y > wallRef.current[`y${i}`] + (wallRef.current[`height`]))
-      ||
-      refObject.current.y +refObject.current.h< wallRef.current[`y${i}`]
-      ||
-      (refObject.current.x+refObject.current.w)<(wallRef.current[`x${i}`])
-      ||
-      (refObject.current.x)>(wallRef.current[`x${i}`]+wallRef.current["width"])
-       ){
-          }else{
-            borders(i,refObject)
-            }
-    }}
-    i++
-  }
+      if(
+          refObject.current.y > wallRef.current[key].y + wallRef.current[key].h
+          ||
+          refObject.current.y + refObject.current.h < wallRef.current[key].y
+          ||
+          refObject.current.x + refObject.current.w < wallRef.current[key].x
+          ||
+          refObject.current.x > wallRef.current[key].x + wallRef.current[key].w
+              ){
+      }else{
+        borders(refObject)
+      }
+      }
+  
     }
 
-function borders(i,refObject){
+function borders(refObject){
+  
   if(directionRef.current === "right"){
     refObject.current.x -=refObject.current.speedx
     refObject.current.movex=0
@@ -102,53 +98,57 @@ function borders(i,refObject){
 }
 
 
-  const moveRight = () => {
-    pacManRef.current.movex = pacManRef.current.speedx
-    pacManRef.current.movey = 0
+  const moveRight = (refObject) => {
+    refObject.current.movex = refObject.current.speedx
+    refObject.current.movey = 0
     directionRef.current = "right"
   }
 
-  const moveLeft = () => {
-    pacManRef.current.movex = -pacManRef.current.speedx
-    pacManRef.current.movey = 0
+  const moveLeft = (refObject) => {
+    refObject.current.movex = -refObject.current.speedx
+    refObject.current.movey = 0
     directionRef.current = "left"
   }
 
-  const moveDown = () => {
-    pacManRef.current.movey = pacManRef.current.speedy
-    pacManRef.current.movex = 0
+  const moveDown = (refObject) => {
+    refObject.current.movey = refObject.current.speedy
+    refObject.current.movex = 0
+
     directionRef.current = "down"
   }
 
-  const moveUp= () => {
-    pacManRef.current.movey =  -pacManRef.current.speedy
-    pacManRef.current.movex = 0
+  const moveUp = (refObject) => {
+    refObject.current.movey =  -refObject.current.speedy
+    refObject.current.movex = 0
+
     directionRef.current = "up"
   }
   
-  const stopMoving= () => {
-    pacManRef.current.movey =  0
-    pacManRef.current.movex = 0
+  const stopMoving= (refObject) => {
+    refObject.current.movey =  0
+    refObject.current.movex = 0
+
     directionRef.current = "notMoving"
   }
-  const movePac = () => {
-    pacManRef.current.x += pacManRef.current.movex
-    pacManRef.current.y += pacManRef.current.movey
+
+  const moveObject = (refObject) => {
+    refObject.current.x += refObject.current.movex
+    refObject.current.y += refObject.current.movey
 
   }
 
   const movementFunction = (e) => {
 
     if(e.key === "d"){
-      moveRight()
+      moveRight(pacManRef)
     }else if(e.key === "a"){
-      moveLeft()
+      moveLeft(pacManRef)
     }else if(e.key === "s"){
-      moveDown()
+      moveDown(pacManRef)
     }else if(e.key === "w"){
-      moveUp()
+      moveUp(pacManRef)
     }else if(e.key === "p"){
-      stopMoving()
+      stopMoving(pacManRef)
     }
 
   }

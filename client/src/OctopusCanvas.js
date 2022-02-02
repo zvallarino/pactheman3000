@@ -51,9 +51,9 @@ function OctopusCanvas({wallRef}){
 
     
     const update = () => {
-      drawOctopus()
-      moveObject(octupusRef)
-      boundariesAll(octupusRef)
+      // drawOctopus()
+      // moveObject(octupusRef)
+      // boundariesAll(octupusRef)
       requestAnimationFrame(update)
     }
 
