@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from "react";
 
-function PlayerCanvas({wallRef}){
+function PlayerCanvas({wallRef, notawallRef, pacManRef}){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
-  const pacManRef = useRef(null)
   const directionRef = useRef("notMoving")
   const imageRef = useRef("https://i.imgur.com/1qdpodV.png")
 
@@ -27,8 +26,8 @@ function PlayerCanvas({wallRef}){
     contextRef.current = context
 
     const pacMan = {
-      x:SCREEN_WIDTH*(8/20),
-      y:SCREEN_HEIGHT*(14/20),
+      x:SCREEN_WIDTH*(16/20),
+      y:SCREEN_HEIGHT*(4/20),
       w:SCREEN_WIDTH*(1.6/20),
       h:SCREEN_HEIGHT*(2/20),
       movex:0,
@@ -53,7 +52,9 @@ function PlayerCanvas({wallRef}){
     const update = () => {
       drawPacMan()
       moveObject(pacManRef)
-      boundaries(pacManRef)
+      boundaries(pacManRef,wallRef)
+
+      
       requestAnimationFrame(update)
     }
  
@@ -61,24 +62,40 @@ function PlayerCanvas({wallRef}){
 
   },[])
 
-function boundaries(refObject){
+function boundaries(refObject,refObject2){
   let i = 1;
-  for (let key in wallRef.current){
+  for (let key in refObject2.current){
       if(
-          refObject.current.y > wallRef.current[key].y + wallRef.current[key].h
+          refObject.current.y > refObject2.current[key].y + refObject2.current[key].h
           ||
-          refObject.current.y + refObject.current.h < wallRef.current[key].y
+          refObject.current.y + refObject.current.h < refObject2.current[key].y
           ||
-          refObject.current.x + refObject.current.w < wallRef.current[key].x
+          refObject.current.x + refObject.current.w < refObject2.current[key].x
           ||
-          refObject.current.x > wallRef.current[key].x + wallRef.current[key].w
+          refObject.current.x > refObject2.current[key].x + refObject2.current[key].w
               ){
+                
       }else{
         borders(refObject)
       }
       }
-  
     }
+
+    function boundariesForBalls(refObject,refObject2){
+      for (let key in refObject2.current){
+          if(
+              refObject.current.y > refObject2.current[key].y + refObject2.current[key].h
+              ||
+              refObject.current.y + refObject.current.h < refObject2.current[key].y
+              ||
+              refObject.current.x + refObject.current.w < refObject2.current[key].x
+              ||
+              refObject.current.x > refObject2.current[key].x + refObject2.current[key].w
+                  ){
+                    
+          }
+          }
+        }
 
 function borders(refObject){
   
@@ -134,7 +151,6 @@ function borders(refObject){
   const moveObject = (refObject) => {
     refObject.current.x += refObject.current.movex
     refObject.current.y += refObject.current.movey
-
   }
 
   const movementFunction = (e) => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-function BlocksForGameBoard({wallRef}){
+function BlocksForGameBoard({wallRef, notawallRef, wallCounter, ballCounter}){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
@@ -28,8 +28,6 @@ function BlocksForGameBoard({wallRef}){
 
     const update = () => {
       gameBoardLoop(gameBoard)
-      // drawRectangle()
-
     }
 
     update()
@@ -37,9 +35,8 @@ function BlocksForGameBoard({wallRef}){
   },[])
 
   let gameBoard = [
-    [0,0,0,0,0],
-    [0,0,1,0,0],
-    [0,0,0,0,0],
+    [0,0],
+    [1,0]
   ]
 
   let gdWidth = gameBoard[0].length
@@ -47,45 +44,58 @@ function BlocksForGameBoard({wallRef}){
 
   const drawRectangle = (xposition,yposition,colorZ,counter) => {
 
-    // console.log(wallRef.current)
-    // // console.log(numberZ)
-    if(!counter){
+    if(counter === ballCounter){
     contextRef.current.beginPath();
     contextRef.current.rect(xposition, yposition, SCREEN_WIDTH/gdWidth, SCREEN_HEIGHT/gbHeight);
     contextRef.current.fillStyle = colorZ
-    contextRef.current.fill();}
+    contextRef.current.fill();
+    notawallRef.current[`ball${ballCounter.current}`]={}
+    notawallRef.current[`ball${ballCounter.current}`].x=xposition
+    notawallRef.current[`ball${ballCounter.current}`].y=yposition
+    notawallRef.current[`ball${ballCounter.current}`].h=SCREEN_HEIGHT/gbHeight
+    notawallRef.current[`ball${ballCounter.current}`].w=SCREEN_WIDTH/gdWidth
+    notawallRef.current[`ball${ballCounter.current}`].color = colorZ 
+  }
 
-    if(counter){
+    if(counter === wallCounter){
       contextRef.current.beginPath();
       contextRef.current.rect(xposition, yposition, SCREEN_WIDTH/gdWidth, SCREEN_HEIGHT/gbHeight);
       contextRef.current.fillStyle = colorZ
       contextRef.current.fill();
-      wallRef.current[`wall${counter}`]={}
-      wallRef.current[`wall${counter}`].x=xposition
-      wallRef.current[`wall${counter}`].y=yposition
-      wallRef.current[`wall${counter}`].h=SCREEN_HEIGHT/gbHeight
-      wallRef.current[`wall${counter}`].w=SCREEN_WIDTH/gdWidth
-      wallRef.current[`wall${counter}`].color = colorZ
-    }
-     
+      wallRef.current[`wall${wallCounter.current}`]={}
+      wallRef.current[`wall${wallCounter.current}`].x=xposition
+      wallRef.current[`wall${wallCounter.current}`].y=yposition
+      wallRef.current[`wall${wallCounter.current}`].h=SCREEN_HEIGHT/gbHeight
+      wallRef.current[`wall${wallCounter.current}`].w=SCREEN_WIDTH/gdWidth
+      wallRef.current[`wall${wallCounter.current}`].color = colorZ
+    }  
   }
 
   console.log(wallRef)
+  console.log(notawallRef)
 
   const gameBoardLoop = (arrayZ) =>{
-    let WallCounter = 0;
+
 
     for(let i = 0; i<arrayZ.length;i++){
-      let yStartPosition = (i/arrayZ.length)* SCREEN_HEIGHT;
-      for(let j = 0; j<arrayZ[i].length;j++){
-        let xStartPosition = (j/arrayZ[i].length)* SCREEN_WIDTH;
-        if(arrayZ[i][j]===0){
-          drawRectangle(xStartPosition,yStartPosition,"yellow",)}
-        if(arrayZ[i][j]===1){
-          drawRectangle(xStartPosition,yStartPosition,"blue",WallCounter)}
-          WallCounter += 1;
-      }
-    }
+        let yStartPosition = (i/arrayZ.length)* SCREEN_HEIGHT;
+          for(let j = 0; j<arrayZ[i].length;j++){
+            let xStartPosition = (j/arrayZ[i].length)* SCREEN_WIDTH;
+            // console.log(arrayZ[i][j])
+              if(arrayZ[i][j]===0){
+        
+                drawRectangle(xStartPosition,yStartPosition,"green",ballCounter)
+                ballCounter.current += 1
+              }
+
+              if(arrayZ[i][j]===1){
+          
+                drawRectangle(xStartPosition,yStartPosition,"blue",wallCounter)
+                wallCounter.current += 1;
+              }
+               
+          }
+        }
   }
 
 

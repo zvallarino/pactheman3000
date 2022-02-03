@@ -27,7 +27,7 @@ function OctopusCanvas({wallRef}){
     contextRef.current = context
 
     const octopus = {
-      x:SCREEN_WIDTH*(3.5/20),
+      x:SCREEN_WIDTH*(4.5/20),
       y:SCREEN_HEIGHT*(6.5/20),
       w:SCREEN_WIDTH*(1.6/20),
       h:SCREEN_HEIGHT*(2/20),
@@ -53,7 +53,7 @@ function OctopusCanvas({wallRef}){
     const update = () => {
       // drawOctopus()
       // moveObject(octupusRef)
-      // boundariesAll(octupusRef)
+      // boundaries(octupusRef)
       requestAnimationFrame(update)
     }
 
@@ -61,19 +61,15 @@ function OctopusCanvas({wallRef}){
 
  
     update()
-    moveUp(octupusRef)
-    // moveRight(octupusRef)
-    // moveLeft(octupusRef)
-    // moveDown(octupusRef)
 
   },[])
 
   const directionalArray = ["up","down","left","right"]
 
-  let currentDirection = "down"
+  let currentDirection = "right"
 
 
-  // if wall pick a new direction that does not include the last one\
+  // if wall pick a new direction that does not include the last one
 
   //
 
@@ -85,6 +81,8 @@ function OctopusCanvas({wallRef}){
     const isLargeNumber = (element) => element === direction;
     return directionalArray.findIndex(isLargeNumber)
   }
+
+  // console.log(currentIndex(currentDirection))
 
   const directionalPicker = (indexNumber) =>{
     //Basically how this works, it sets the newNumber to the indexNumber. If The new number is equal to the indexNumber, it runs again. 
@@ -106,7 +104,7 @@ function OctopusCanvas({wallRef}){
   return newDirectionIndex
   }
 
-  console.log(directionalPicker(currentDirection))
+  console.log(directionalPicker(currentIndex(currentDirection)))
 
   const moveRight = (refObject) => {
 
@@ -143,47 +141,35 @@ const moveOctupus = (directionIndex,refObject) =>{
     let newDirection = directionalArray[directionIndex]
     console.log(newDirection)
     if(newDirection === "right"){
-      // borders()
       moveRight(refObject)
     }else if(newDirection === "left"){
-      // borders()
       moveLeft(refObject)
     }else if (newDirection === "up"){
-      // borders()
       moveUp(refObject)
     }else if(newDirection === "down"){
-      // borders()
       moveDown(refObject)
     }
     return newDirection
   }
   
 
-
-function boundariesAll(refObject){
+function boundaries(refObject){
   let i = 1;
   for (let key in wallRef.current){
-    if (`x${i}` in wallRef.current){
-      if (`y${i}` in wallRef.current){
-     if(
-      (refObject.current.y > wallRef.current[`y${i}`] + (wallRef.current[`height`]))
-      ||
-      refObject.current.y +refObject.current.h< wallRef.current[`y${i}`]
-      ||
-      (refObject.current.x+refObject.current.w)<(wallRef.current[`x${i}`])
-      ||
-      (refObject.current.x)>(wallRef.current[`x${i}`]+wallRef.current["width"])
-       ){
-        // console.log("not a wall")
-          }else{
-            borders(refObject)
-            //if it hits a wall, choose a new direction.
-            
-
-            }
-    }}
-    i++
-  }
+      if(
+          refObject.current.y > wallRef.current[key].y + wallRef.current[key].h
+          ||
+          refObject.current.y + refObject.current.h < wallRef.current[key].y
+          ||
+          refObject.current.x + refObject.current.w < wallRef.current[key].x
+          ||
+          refObject.current.x > wallRef.current[key].x + wallRef.current[key].w
+              ){
+      }else{
+        borders(refObject)
+      }
+      }
+  
     }
     
 
@@ -219,7 +205,6 @@ function borders(refObject ){
   const moveObject = (refObject) => {
     refObject.current.x += refObject.current.movex
     refObject.current.y += refObject.current.movey
-
   }
   
   const keyUp = () => {}
