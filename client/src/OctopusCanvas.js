@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-function OctopusCanvas({wallRef}){
+function OctopusCanvas({wallRef, pacManRef, pacManStartPositionRef, livesCount}){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
@@ -51,9 +51,10 @@ function OctopusCanvas({wallRef}){
 
     
     const update = () => {
-      // drawOctopus()
-      // moveObject(octupusRef)
-      // boundaries(octupusRef)
+      drawOctopus()
+      moveObject(octupusRef)
+      boundaries(octupusRef)
+      HitGhost(pacManRef, octupusRef)
       requestAnimationFrame(update)
     }
 
@@ -61,6 +62,7 @@ function OctopusCanvas({wallRef}){
 
  
     update()
+    // moveUp(octupusRef)
 
   },[])
 
@@ -91,7 +93,6 @@ function OctopusCanvas({wallRef}){
 
     const recursiveFunction =(indexNumber)=>{
       if(indexNumber !== newNumber){
-        console.log(indexNumber)
         newDirectionIndex = indexNumber
         return indexNumber
       }else{
@@ -104,7 +105,6 @@ function OctopusCanvas({wallRef}){
   return newDirectionIndex
   }
 
-  console.log(directionalPicker(currentIndex(currentDirection)))
 
   const moveRight = (refObject) => {
 
@@ -139,7 +139,6 @@ function OctopusCanvas({wallRef}){
 
 const moveOctupus = (directionIndex,refObject) =>{
     let newDirection = directionalArray[directionIndex]
-    console.log(newDirection)
     if(newDirection === "right"){
       moveRight(refObject)
     }else if(newDirection === "left"){
@@ -171,6 +170,31 @@ function boundaries(refObject){
       }
   
     }
+
+    function HitGhost(refObject,refObject2){
+
+  
+          if
+          (refObject.current.x+refObject.current.w>refObject2.current.x
+          &&
+          refObject.current.x<refObject2.current.x+refObject2.current.w
+          &&
+          refObject.current.y+refObject.current.h>refObject2.current.y
+          &&
+          refObject.current.y<refObject2.current.y+refObject2.current.h)
+          {
+            if(livesCount.current===0){
+              
+              //console.log("game over")
+            }
+            pacManRef.current.x = pacManStartPositionRef.current.x
+            pacManRef.current.y = pacManStartPositionRef.current.y
+            livesCount.current-=1
+          }else{
+            // console.log("no")
+          }
+          
+        }
     
 
 
@@ -207,7 +231,7 @@ function borders(refObject ){
     refObject.current.y += refObject.current.movey
   }
   
-  const keyUp = () => {}
+
   return (
    <canvas
    ref = {canvasRef}

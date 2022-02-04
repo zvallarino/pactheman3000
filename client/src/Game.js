@@ -9,18 +9,27 @@ function Game(){
 
   const wallRef = useRef({})
   const pacManRef = useRef(null)
+  const pacManStartPositionRef = useRef({})
   const notawallRef = useRef({})
   const wallCounter = useRef(0)
   const ballCounter = useRef(0)
+  const livesCount = useRef(5)
 
   return (
     <>
     <PlayerCanvas
     pacManRef = {pacManRef}
     wallRef = {wallRef}
-    notawallRef = {notawallRef} 
+    notawallRef = {notawallRef}
+    pacManStartPositionRef = {pacManStartPositionRef} 
+    
     />
-    <OctopusCanvas wallRef = {wallRef}/>
+    <OctopusCanvas
+    wallRef = {wallRef}
+    pacManRef = {pacManRef}
+    pacManStartPositionRef = {pacManStartPositionRef}
+    livesCount = {livesCount}
+    />
     <BallsCanvas 
     pacManRef = {pacManRef}
     notawallRef = {notawallRef} 

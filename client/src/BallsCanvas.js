@@ -4,6 +4,8 @@ function BallsCanvas({notawallRef,pacManRef}){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
+  const whiteBlocksRef = useRef({})
+  const arrayOfWhiteXY = useRef([])
 
   const SCREEN_WIDTH = window.innerWidth;
   const SCREEN_HEIGHT = window.innerHeight;
@@ -27,7 +29,7 @@ function BallsCanvas({notawallRef,pacManRef}){
 
 
     const update = () => {
-      boundariesForBalls(pacManRef,notawallRef)
+      boundariesForBalls(pacManRef,notawallRef,whiteBlocksRef)
       requestAnimationFrame(update)
     }
  
@@ -35,14 +37,8 @@ function BallsCanvas({notawallRef,pacManRef}){
 
   },[])
 
-    function boundariesForBalls(refObject,refObject2){
-      console.log(refObject2)
-      console.log(refObject.current.h)
-  
+    function boundariesForBalls(refObject,refObject2,refObject3){
       for (let key in refObject2.current){
-          // console.log(refObject2.current[key])
-          // console.log(refObject.current.x+refObject.current.w>refObject2.current[key].x)
-          // console.log( refObject.current.x<refObject2.current[key].x+refObject2.current[key].w)
           if
           (refObject.current.x+refObject.current.w>refObject2.current[key].x
           &&
@@ -57,11 +53,33 @@ function BallsCanvas({notawallRef,pacManRef}){
             contextRef.current.rect(refObject2.current[key].x, refObject2.current[key].y, refObject2.current[key].w, refObject2.current[key].h);
             contextRef.current.fillStyle = "white"
             contextRef.current.fill();
+
+            ArrayXYBuilder(refObject2.current[key].x,refObject2.current[key].y,arrayOfWhiteXY)
+     
+            if((Object.keys(refObject2.current).length)===arrayOfWhiteXY.current.length){
+              console.log("you won")
+            }
+
           }else{
-            console.log("no")
           }
           }
         }
+
+
+
+        function ArrayXYBuilder (x,y,arrayOfXY){
+
+        if(arrayOfXY.current.length===0){
+          return arrayOfXY.current.push([x,y])
+        }
+          for(let key of arrayOfXY.current){
+            if(key[0]===x&&key[1]===y)
+            {return true}
+          } 
+
+          return arrayOfXY.current.push([x,y])
+        }
+
 
   
   return (

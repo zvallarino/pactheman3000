@@ -35,8 +35,11 @@ function BlocksForGameBoard({wallRef, notawallRef, wallCounter, ballCounter}){
   },[])
 
   let gameBoard = [
-    [0,0],
-    [1,0]
+    [1,1,1,1,1],
+    [1,0,0,0,1],
+    [1,0,1,0,1],
+    [1,0,0,0,1],
+    [1,1,1,1,1]
   ]
 
   let gdWidth = gameBoard[0].length

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-function PlayerCanvas({wallRef, notawallRef, pacManRef}){
+function PlayerCanvas({wallRef, notawallRef, pacManRef, pacManStartPositionRef}){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
@@ -26,8 +26,8 @@ function PlayerCanvas({wallRef, notawallRef, pacManRef}){
     contextRef.current = context
 
     const pacMan = {
-      x:SCREEN_WIDTH*(16/20),
-      y:SCREEN_HEIGHT*(4/20),
+      x:SCREEN_WIDTH*(14/20),
+      y:SCREEN_HEIGHT*(4.5/20),
       w:SCREEN_WIDTH*(1.6/20),
       h:SCREEN_HEIGHT*(2/20),
       movex:0,
@@ -35,6 +35,9 @@ function PlayerCanvas({wallRef, notawallRef, pacManRef}){
       speedx:5,
       speedy:5,
     }
+
+    pacManStartPositionRef.current.x =  pacMan.x
+    pacManStartPositionRef.current.y =  pacMan.y
 
     pacManRef.current = pacMan
 
