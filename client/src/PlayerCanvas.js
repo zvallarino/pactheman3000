@@ -47,8 +47,7 @@ function PlayerCanvas({wallRef, notawallRef, pacManRef, pacManStartPositionRef})
       pacManImg.onload = function(){
         contextRef.current.clearRect(0,0,canvasRef.current.width,canvasRef.current.height);
         contextRef.current.drawImage(pacManImg,pacManRef.current.x,pacManRef.current.y,pacManRef.current.w,pacManRef.current.h)
-        contextRef.current.strokeStyle ='red';
-        contextRef.current.strokeRect(pacManRef.current.x,pacManRef.current.y,pacManRef.current.w,pacManRef.current.h)
+
       }
     }
 
@@ -56,8 +55,6 @@ function PlayerCanvas({wallRef, notawallRef, pacManRef, pacManStartPositionRef})
       drawPacMan()
       moveObject(pacManRef)
       boundaries(pacManRef,wallRef)
-
-      
       requestAnimationFrame(update)
     }
  
@@ -84,22 +81,6 @@ function boundaries(refObject,refObject2){
       }
     }
 
-    function boundariesForBalls(refObject,refObject2){
-      for (let key in refObject2.current){
-          if(
-              refObject.current.y > refObject2.current[key].y + refObject2.current[key].h
-              ||
-              refObject.current.y + refObject.current.h < refObject2.current[key].y
-              ||
-              refObject.current.x + refObject.current.w < refObject2.current[key].x
-              ||
-              refObject.current.x > refObject2.current[key].x + refObject2.current[key].w
-                  ){
-                    
-          }
-          }
-        }
-
 function borders(refObject){
   
   if(directionRef.current === "right"){
@@ -117,16 +98,17 @@ function borders(refObject){
   }
 }
 
-
   const moveRight = (refObject) => {
     refObject.current.movex = refObject.current.speedx
     refObject.current.movey = 0
+    
     directionRef.current = "right"
   }
 
   const moveLeft = (refObject) => {
     refObject.current.movex = -refObject.current.speedx
     refObject.current.movey = 0
+
     directionRef.current = "left"
   }
 

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 
-function OctopusCanvas({wallRef, pacManRef, pacManStartPositionRef, livesCount}){
+function OctopusCanvas({wallRef, pacManRef, pacManStartPositionRef, livesCount, canEatOctopusRef}){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
   const octupusRef = useRef(null)
+  const octupusStartRef = useRef({})
   const directionRef = useRef("up")
   const imageRef = useRef("https://i.imgur.com/OYefjqj.png")
 
@@ -36,8 +37,11 @@ function OctopusCanvas({wallRef, pacManRef, pacManStartPositionRef, livesCount})
       speedx:5,
       speedy:5,
     }
+  octupusStartRef.current.x = octopus.x
+  octupusStartRef.current.y = octopus.y
 
   octupusRef.current = octopus
+ 
 
     const drawOctopus = () => {
       let octopusImg = new Image();
@@ -62,18 +66,11 @@ function OctopusCanvas({wallRef, pacManRef, pacManStartPositionRef, livesCount})
 
  
     update()
-    // moveUp(octupusRef)
+    moveUp(octupusRef)
 
   },[])
 
   const directionalArray = ["up","down","left","right"]
-
-  let currentDirection = "right"
-
-
-  // if wall pick a new direction that does not include the last one
-
-  //
 
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -83,8 +80,6 @@ function OctopusCanvas({wallRef, pacManRef, pacManStartPositionRef, livesCount})
     const isLargeNumber = (element) => element === direction;
     return directionalArray.findIndex(isLargeNumber)
   }
-
-  // console.log(currentIndex(currentDirection))
 
   const directionalPicker = (indexNumber) =>{
     //Basically how this works, it sets the newNumber to the indexNumber. If The new number is equal to the indexNumber, it runs again. 
@@ -173,7 +168,7 @@ function boundaries(refObject){
 
     function HitGhost(refObject,refObject2){
 
-  
+         
           if
           (refObject.current.x+refObject.current.w>refObject2.current.x
           &&
@@ -184,18 +179,48 @@ function boundaries(refObject){
           refObject.current.y<refObject2.current.y+refObject2.current.h)
           {
             if(livesCount.current===0){
-              
-              //console.log("game over")
+
             }
-            pacManRef.current.x = pacManStartPositionRef.current.x
-            pacManRef.current.y = pacManStartPositionRef.current.y
-            livesCount.current-=1
+
+            OctupusEatOrNot(canEatOctopusRef,pacManRef,pacManStartPositionRef,octupusRef,octupusStartRef)
+
           }else{
             // console.log("no")
           }
           
         }
     
+
+function OctupusEatOrNot(reference,pacman,pacmanstart, octopus,octopusStartPosition){
+  console.log(octopusStartPosition)
+  if(reference.current){
+    console.log(reference.current)
+    octopus.current.x = octopusStartPosition.current.x
+    octopus.current.y = octopusStartPosition.current.y
+    console.log('hello')
+  }else{
+    pacman.current.x = pacmanstart.current.x
+    pacman.current.y = pacmanstart.current.y
+     livesCount.current-=1
+    console.log('false')
+  }
+
+  // if(!canEatOctopusRef.current)
+  // {
+  //  console.log("hello") 
+  //  refObject.current.x = pacManStartPositionRef.current.x
+  //  refObject.current.y = pacManStartPositionRef.current.y
+  //  livesCount.current-=1}
+  //  else{
+  //    console.log("yo") 
+  //  refObject2.current.x = octupusStartRef.current.x
+  //  refObject2.current.y = octupusStartRef.current.y
+  //  }
+
+
+}
+
+ 
 
 
 function borders(refObject ){

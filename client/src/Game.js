@@ -14,6 +14,7 @@ function Game(){
   const wallCounter = useRef(0)
   const ballCounter = useRef(0)
   const livesCount = useRef(5)
+  const canEatOctopusRef = useRef(false)
 
   return (
     <>
@@ -29,10 +30,12 @@ function Game(){
     pacManRef = {pacManRef}
     pacManStartPositionRef = {pacManStartPositionRef}
     livesCount = {livesCount}
+    canEatOctopusRef = {canEatOctopusRef}
     />
     <BallsCanvas 
     pacManRef = {pacManRef}
     notawallRef = {notawallRef} 
+    canEatOctopusRef = {canEatOctopusRef}
     />
     <BlocksForGameBoard 
     wallRef = {wallRef}

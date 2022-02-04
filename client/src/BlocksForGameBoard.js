@@ -38,7 +38,7 @@ function BlocksForGameBoard({wallRef, notawallRef, wallCounter, ballCounter}){
     [1,1,1,1,1],
     [1,0,0,0,1],
     [1,0,1,0,1],
-    [1,0,0,0,1],
+    [1,2,0,0,1],
     [1,1,1,1,1]
   ]
 
@@ -95,6 +95,11 @@ function BlocksForGameBoard({wallRef, notawallRef, wallCounter, ballCounter}){
           
                 drawRectangle(xStartPosition,yStartPosition,"blue",wallCounter)
                 wallCounter.current += 1;
+              }
+
+              if(arrayZ[i][j]===2){
+                drawRectangle(xStartPosition,yStartPosition,"purple",ballCounter)
+                ballCounter.current += 1;
               }
                
           }
