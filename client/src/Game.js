@@ -4,7 +4,7 @@ import GameArea from "./GameArea";
 import PacManCanvas from "./PacManCanvas";
 import BallsCanvas from "./BallsCanvas";
 import OctopusFactory from "./OctopusFactory";
-
+import LivesCanvas from "./LivesCanvas";
 
 function Game(){
 
@@ -111,6 +111,11 @@ function Game(){
     
     SCREEN_WIDTH = {SCREEN_WIDTH}
     SCREEN_HEIGHT = {SCREEN_HEIGHT}
+    />
+
+    <LivesCanvas 
+     SCREEN_WIDTH = {SCREEN_WIDTH}
+     SCREEN_HEIGHT = {SCREEN_HEIGHT}
     />
     </>
   )

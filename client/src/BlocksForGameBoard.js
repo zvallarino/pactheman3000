@@ -20,7 +20,7 @@ function BlocksForGameBoard({
     canvas.style.position = "absolute";
     canvas.style.left = `${SCREEN_WIDTH*(5/20)}px`;
     canvas.style.top = `${SCREEN_HEIGHT*(1/20)}px`;
-    canvas.style['z-index'] = 1;
+    canvas.style['z-index'] = 2;
 
     const context = canvas.getContext("2d");
     context.scale(2,2); 
