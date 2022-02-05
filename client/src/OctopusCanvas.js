@@ -1,64 +1,60 @@
 import React, { useState, useEffect, useRef } from "react";
 
-function OctopusCanvas({wallRef, pacManRef, pacManStartPositionRef, livesCount, canEatOctopusRef}){
+function OctopusCanvas({
+  octopus, wallRef, pacManRef, pacManStartPositionRef, 
+  livesCount, canEatOctopusRef, SCREEN_WIDTH, 
+  SCREEN_HEIGHT}){
+
+  console.log(octopus)
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
-  const octupusRef = useRef(null)
+
+  const octopusRef = useRef(null)
   const octupusStartRef = useRef({})
   const directionRef = useRef("up")
   const imageRef = useRef("https://i.imgur.com/OYefjqj.png")
 
-  const SCREEN_WIDTH = window.innerWidth;
-  const SCREEN_HEIGHT = window.innerHeight;
 
   useEffect(()=>{
     const canvas = canvasRef.current;
-    canvas.width = window.innerWidth * 2;
-    canvas.height = window.innerHeight *2;
-    canvas.style.width = `${window.innerWidth*(10/20)}px`
-    canvas.style.height = `${window.innerHeight*(16/20)}px`
+    canvas.width = SCREEN_WIDTH * 2;
+    canvas.height = SCREEN_HEIGHT *2;
+    canvas.style.width = `${SCREEN_WIDTH*(10/20)}px`
+    canvas.style.height = `${SCREEN_HEIGHT*(18/20)}px`
     canvas.style.position = "absolute";
-    canvas.style.left = `${window.innerWidth*(5/20)}px`;
-    canvas.style.top = `${window.innerHeight*(2/20)}px`;
+    canvas.style.left = `${SCREEN_WIDTH*(5/20)}px`;
+    canvas.style.top = `${SCREEN_HEIGHT*(1/20)}px`;
     canvas.style['z-index'] = 9;
  
     const context = canvas.getContext("2d");
     context.scale(2,2);
     contextRef.current = context
-
-    const octopus = {
-      x:SCREEN_WIDTH*(4.5/20),
-      y:SCREEN_HEIGHT*(6.5/20),
-      w:SCREEN_WIDTH*(1.6/20),
-      h:SCREEN_HEIGHT*(2/20),
-      movex:0,
-      movey:0,
-      speedx:5,
-      speedy:5,
-    }
+    
+  octopusRef.current = octopus
   octupusStartRef.current.x = octopus.x
   octupusStartRef.current.y = octopus.y
 
-  octupusRef.current = octopus
- 
 
-    const drawOctopus = () => {
-      let octopusImg = new Image();
-      octopusImg.src = imageRef.current;
-      octopusImg.onload = function(){
+
+
+    const drawOctopus = (octopusRef) => {
+      let octo = new Image();
+      octo.src = octopusRef.current.image;
+
+      octo.onload = function(){
         contextRef.current.clearRect(0,0,canvasRef.current.width,canvasRef.current.height);
-        contextRef.current.drawImage(octopusImg,octupusRef.current.x,octupusRef.current.y,octupusRef.current.w,octupusRef.current.h)
+        contextRef.current.drawImage(octo,octopusRef.current.x,octopusRef.current.y,octopusRef.current.w,octopusRef.current.h)
       }
     }
     
 
     
     const update = () => {
-      drawOctopus()
-      moveObject(octupusRef)
-      boundaries(octupusRef)
-      HitGhost(pacManRef, octupusRef)
+      drawOctopus(octopusRef)
+      moveObject(octopusRef)
+      boundaries(octopusRef)
+      HitGhost(pacManRef, octopusRef)
       requestAnimationFrame(update)
     }
 
@@ -66,7 +62,7 @@ function OctopusCanvas({wallRef, pacManRef, pacManStartPositionRef, livesCount, 
 
  
     update()
-    moveUp(octupusRef)
+    moveUp(octopusRef)
 
   },[])
 
@@ -182,7 +178,7 @@ function boundaries(refObject){
 
             }
 
-            OctupusEatOrNot(canEatOctopusRef,pacManRef,pacManStartPositionRef,octupusRef,octupusStartRef)
+            OctupusEatOrNot(canEatOctopusRef,pacManRef,pacManStartPositionRef,octopusRef,octupusStartRef)
 
           }else{
             // console.log("no")
@@ -192,7 +188,6 @@ function boundaries(refObject){
     
 
 function OctupusEatOrNot(reference,pacman,pacmanstart, octopus,octopusStartPosition){
-  console.log(octopusStartPosition)
   if(reference.current){
     console.log(reference.current)
     octopus.current.x = octopusStartPosition.current.x
@@ -204,20 +199,6 @@ function OctupusEatOrNot(reference,pacman,pacmanstart, octopus,octopusStartPosit
      livesCount.current-=1
     console.log('false')
   }
-
-  // if(!canEatOctopusRef.current)
-  // {
-  //  console.log("hello") 
-  //  refObject.current.x = pacManStartPositionRef.current.x
-  //  refObject.current.y = pacManStartPositionRef.current.y
-  //  livesCount.current-=1}
-  //  else{
-  //    console.log("yo") 
-  //  refObject2.current.x = octupusStartRef.current.x
-  //  refObject2.current.y = octupusStartRef.current.y
-  //  }
-
-
 }
 
  
