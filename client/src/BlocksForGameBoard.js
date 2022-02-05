@@ -1,26 +1,26 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {  useEffect, useRef } from "react";
 
-function BlocksForGameBoard({wallRef}){
+function BlocksForGameBoard({
+  wallRef, notawallRef, wallCounter,
+  ballCounter, SCREEN_WIDTH, SCREEN_HEIGHT,
+  gameBoard,BLOCK_WIDTH, BLOCK_HEIGHT
+  }){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
 
-  
-  const SCREEN_WIDTH = window.innerWidth;
-  const SCREEN_HEIGHT = window.innerHeight;
-
 
   useEffect(()=>{
     const canvas = canvasRef.current;
-    canvas.width = window.innerWidth * 2;
-    canvas.height = window.innerHeight *2;
-    canvas.style.width = `${window.innerWidth*(10/20)}px`
-    canvas.style.height = `${window.innerHeight*(16/20)}px`
+    canvas.width = SCREEN_WIDTH * 2;
+    canvas.height = SCREEN_HEIGHT *2;
+    canvas.style.width = `${SCREEN_WIDTH *(10/20)}px`
+    canvas.style.height = `${SCREEN_HEIGHT*(18/20)}px`
     canvas.style.backgroundColor = "yellow";
     canvas.style.position = "absolute";
     canvas.style.left = `${SCREEN_WIDTH*(5/20)}px`;
-    canvas.style.top = `${SCREEN_HEIGHT*(2/20)}px`;
-    canvas.style['z-index'] = 1;
+    canvas.style.top = `${SCREEN_HEIGHT*(1/20)}px`;
+    canvas.style['z-index'] = 2;
 
     const context = canvas.getContext("2d");
     context.scale(2,2); 
@@ -28,74 +28,74 @@ function BlocksForGameBoard({wallRef}){
 
     const update = () => {
       gameBoardLoop(gameBoard)
-      // drawRectangle()
-
     }
 
     update()
 
   },[])
 
-  let gameBoard = [
-    [0,0,0,0],
-    [0,0,1,0],
-    [0,0,1,0],
-    [0,0,0,0]
-  ]
-
   const drawRectangle = (xposition,yposition,colorZ,counter) => {
 
-    // console.log(wallRef.current)
-    // // console.log(numberZ)
-    if(!counter){
+    if(counter === ballCounter){
     contextRef.current.beginPath();
-    contextRef.current.rect(xposition, yposition, SCREEN_WIDTH * (5/20), SCREEN_HEIGHT * (5/20));
+    contextRef.current.rect(xposition, yposition, BLOCK_WIDTH, BLOCK_HEIGHT);
     contextRef.current.fillStyle = colorZ
-    contextRef.current.fill();}
+    contextRef.current.fill();
+    notawallRef.current[`ball${ballCounter.current}`]={}
+    notawallRef.current[`ball${ballCounter.current}`].x=xposition
+    notawallRef.current[`ball${ballCounter.current}`].y=yposition
+    notawallRef.current[`ball${ballCounter.current}`].w=BLOCK_WIDTH
+    notawallRef.current[`ball${ballCounter.current}`].h=BLOCK_HEIGHT
+    notawallRef.current[`ball${ballCounter.current}`].color = colorZ 
+  }
 
-    if(counter){
+    if(counter === wallCounter){
       contextRef.current.beginPath();
-      contextRef.current.rect(xposition, yposition, SCREEN_WIDTH * (5/20), SCREEN_HEIGHT * (5/20));
+      contextRef.current.rect(xposition, yposition, BLOCK_WIDTH, BLOCK_HEIGHT);
       contextRef.current.fillStyle = colorZ
       contextRef.current.fill();
-      wallRef.current[`x${counter}`] = xposition
-      wallRef.current[`y${counter}`] = yposition}
+      wallRef.current[`wall${wallCounter.current}`]={}
+      wallRef.current[`wall${wallCounter.current}`].x=xposition
+      wallRef.current[`wall${wallCounter.current}`].y=yposition
+      wallRef.current[`wall${wallCounter.current}`].w=BLOCK_WIDTH
+      wallRef.current[`wall${wallCounter.current}`].h=BLOCK_HEIGHT
+      wallRef.current[`wall${wallCounter.current}`].color = colorZ
+    }  
   }
 
   const gameBoardLoop = (arrayZ) =>{
-    let WallCounter = 0;
-    wallRef.current.width = SCREEN_WIDTH * (5/20)
-    wallRef.current.height = SCREEN_HEIGHT * (5/20)
+
 
     for(let i = 0; i<arrayZ.length;i++){
-      let yStartPosition = (i/arrayZ.length)* SCREEN_HEIGHT;
-      for(let j = 0; j<arrayZ[i].length;j++){
-        let xStartPosition = (j/arrayZ[i].length)* SCREEN_WIDTH;
-        if(arrayZ[i][j]===0){
-          drawRectangle(xStartPosition,yStartPosition,"green",)}
-        if(arrayZ[i][j]===1){
-          WallCounter += 1;
-          drawRectangle(xStartPosition,yStartPosition,"blue",WallCounter)}
-      }
-    }
-  }
+        let yStartPosition = (i/arrayZ.length)* SCREEN_HEIGHT;
+          for(let j = 0; j<arrayZ[i].length;j++){
+            let xStartPosition = (j/arrayZ[i].length)* SCREEN_WIDTH;
+            // console.log(arrayZ[i][j])
+              if(arrayZ[i][j]===0){
+        
+                drawRectangle(xStartPosition,yStartPosition,"green",ballCounter)
+                ballCounter.current += 1
+              }
 
+              if(arrayZ[i][j]===1){
+          
+                drawRectangle(xStartPosition,yStartPosition,"blue",wallCounter)
+                wallCounter.current += 1;
+              }
 
-
-
-  class TimeMap{
-    constructor(x,y,color)
-    {
-    this.x = x;
-    this.y = y;
-    this.color = color;
-    }
+              if(arrayZ[i][j]===2){
+                drawRectangle(xStartPosition,yStartPosition,"purple",ballCounter)
+                ballCounter.current += 1;
+              }
+               
+          }
+        }
   }
 
 
   return (
    <canvas
-  //  tabIndex = "0"
+
    ref = {canvasRef}
    />
   )

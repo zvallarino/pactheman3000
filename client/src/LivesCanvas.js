@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
-function GameArea({SCREEN_WIDTH, SCREEN_HEIGHT}){
+function LivesCanvas({SCREEN_WIDTH, SCREEN_HEIGHT}){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
@@ -13,12 +13,12 @@ function GameArea({SCREEN_WIDTH, SCREEN_HEIGHT}){
     canvas.width = SCREEN_WIDTH * 2;
     canvas.height = SCREEN_HEIGHT *2;
     canvas.style.width = `${SCREEN_WIDTH*(10/20)}px`
-    canvas.style.height = `${SCREEN_HEIGHT*(18/20)}px`
-    canvas.style.backgroundColor = "green";
+    canvas.style.height = `${SCREEN_HEIGHT*(19/20)}px`
+    canvas.style.backgroundColor = "aqua";
     canvas.style.position = "absolute";
     canvas.style.left = `${SCREEN_WIDTH*(5/20)}px`;
     canvas.style.top = `${SCREEN_HEIGHT*(1/20)}px`;
-    canvas.style['z-index'] = 1;
+    canvas.style['z-index'] = 0;
 
  
     const context = canvas.getContext("2d");
@@ -37,4 +37,4 @@ function GameArea({SCREEN_WIDTH, SCREEN_HEIGHT}){
   )
 }
 
-export default GameArea;
+export default LivesCanvas;
