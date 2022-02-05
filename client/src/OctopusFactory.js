@@ -4,7 +4,12 @@ import OctopusCanvas from "./OctopusCanvas";
 function OctopusFactory (
   {wallRef, pacManRef, pacManStartPositionRef, 
     livesCount, canEatOctopusRef, SCREEN_WIDTH, 
-    SCREEN_HEIGHT}){
+    SCREEN_HEIGHT, BLOCK_WIDTH,
+    BLOCK_HEIGHT
+  }){
+
+
+  
 
   class Octopus{
     constructor(x,y,w,h,movex,movey,speedx,speedy,image){
@@ -21,10 +26,10 @@ function OctopusFactory (
   }
 
   let greenOctopus = new Octopus(
-    SCREEN_WIDTH*(9.5/20),
-    SCREEN_HEIGHT*(6/20),
-    SCREEN_WIDTH*(1.1/20),
-    SCREEN_HEIGHT*(1.1/20),
+    BLOCK_WIDTH*5+(BLOCK_WIDTH*3/20),
+    BLOCK_HEIGHT*5+(BLOCK_HEIGHT*2/20),
+    BLOCK_WIDTH*(14/20),
+    BLOCK_HEIGHT*(14/20),
     0,
     0,
     5, 
@@ -33,10 +38,10 @@ function OctopusFactory (
   )
 
   let blueOctopus = new Octopus(
-    SCREEN_WIDTH*(11/20),
-    SCREEN_HEIGHT*(9/20),
-    SCREEN_WIDTH*(1.1/20),
-    SCREEN_HEIGHT*(1.1/20),
+    BLOCK_WIDTH*4+(BLOCK_WIDTH*3/20),
+    BLOCK_HEIGHT*7+(BLOCK_HEIGHT*2/20),
+    BLOCK_WIDTH*(14/20),
+    BLOCK_HEIGHT*(14/20),
     0,
     0,
     5, 
@@ -45,10 +50,10 @@ function OctopusFactory (
   )
 
   let yellowOctopus = new Octopus(
-    SCREEN_WIDTH*(9.5/20),
-    SCREEN_HEIGHT*(9/20),
-    SCREEN_WIDTH*(1.1/20),
-    SCREEN_HEIGHT*(1.1/20),
+    BLOCK_WIDTH*5+(BLOCK_WIDTH*3/20),
+    BLOCK_HEIGHT*7+(BLOCK_HEIGHT*2/20),
+    BLOCK_WIDTH*(14/20),
+    BLOCK_HEIGHT*(14/20),
     0,
     0,
     5, 
@@ -57,10 +62,10 @@ function OctopusFactory (
   )
 
   let redOctopus = new Octopus(
-    SCREEN_WIDTH*(8/20),
-    SCREEN_HEIGHT*(9/20),
-    SCREEN_WIDTH*(1.1/20),
-    SCREEN_HEIGHT*(1.1/20),
+    BLOCK_WIDTH*6+(BLOCK_WIDTH*3/20),
+    BLOCK_HEIGHT*7+(BLOCK_HEIGHT*2/20),
+    BLOCK_WIDTH*(14/20),
+    BLOCK_HEIGHT*(14/20),
     0,
     0,
     5, 

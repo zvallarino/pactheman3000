@@ -2,9 +2,8 @@ import React, {  useEffect, useRef } from "react";
 
 function BlocksForGameBoard({
   wallRef, notawallRef, wallCounter,
-   ballCounter, SCREEN_WIDTH, SCREEN_HEIGHT,
-    gameBoard, gbWidth, gbHeight, 
-    BLOCK_WIDTH, BLOCK_HEIGHT
+  ballCounter, SCREEN_WIDTH, SCREEN_HEIGHT,
+  gameBoard,BLOCK_WIDTH, BLOCK_HEIGHT
   }){
 
   const canvasRef = useRef(null)
@@ -63,9 +62,6 @@ function BlocksForGameBoard({
       wallRef.current[`wall${wallCounter.current}`].color = colorZ
     }  
   }
-
-  console.log(wallRef)
-  console.log(notawallRef)
 
   const gameBoardLoop = (arrayZ) =>{
 

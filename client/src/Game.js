@@ -58,7 +58,7 @@ function Game(){
     pacManRef = {pacManRef}
     wallRef = {wallRef}
     notawallRef = {notawallRef}
-    BLOCK_HEIGHT= {BLOCK_HEIGHT}
+    BLOCK_WIDTH= {BLOCK_WIDTH}
     BLOCK_HEIGHT= {BLOCK_HEIGHT}
     pacManStartPositionRef = {pacManStartPositionRef} 
 
@@ -66,26 +66,30 @@ function Game(){
     SCREEN_HEIGHT = {SCREEN_HEIGHT}
     />
 
-    {/* <OctopusFactory
+    <OctopusFactory
     wallRef = {wallRef}
     pacManRef = {pacManRef}
     pacManStartPositionRef = {pacManStartPositionRef}
     livesCount = {livesCount}
     canEatOctopusRef = {canEatOctopusRef}
+    BLOCK_WIDTH= {BLOCK_WIDTH}
+    BLOCK_HEIGHT= {BLOCK_HEIGHT}
  
     SCREEN_WIDTH = {SCREEN_WIDTH}
     SCREEN_HEIGHT = {SCREEN_HEIGHT}
-    /> */}
+    />
     
-    {/* <BallsCanvas 
+    <BallsCanvas 
     pacManRef = {pacManRef}
     notawallRef = {notawallRef} 
     canEatOctopusRef = {canEatOctopusRef}
+    BLOCK_WIDTH = {BLOCK_WIDTH}
+    BLOCK_HEIGHT ={BLOCK_HEIGHT}
 
 
     SCREEN_WIDTH = {SCREEN_WIDTH}
     SCREEN_HEIGHT = {SCREEN_HEIGHT}
-    /> */}
+    />
 
     <BlocksForGameBoard 
     wallRef = {wallRef}

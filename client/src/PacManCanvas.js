@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
 
 function PacManCanvas({
-  wallRef, notawallRef, pacManRef, 
-  pacManStartPositionRef, SCREEN_WIDTH, SCREEN_HEIGHT
+  wallRef, pacManRef, 
+  pacManStartPositionRef, SCREEN_WIDTH, SCREEN_HEIGHT,
+  BLOCK_WIDTH, BLOCK_HEIGHT
 }){
 
   const canvasRef = useRef(null)
@@ -26,10 +27,10 @@ function PacManCanvas({
     contextRef.current = context
 
     const pacMan = {
-      x:SCREEN_WIDTH*(15/20),
-      y:SCREEN_HEIGHT*(3.8/20),
-      w:SCREEN_WIDTH*(1/20),
-      h:SCREEN_HEIGHT*(1/20),
+      x:BLOCK_WIDTH+(BLOCK_WIDTH*(3/20)),
+      y:BLOCK_HEIGHT+(BLOCK_HEIGHT*(3/20)),
+      w:BLOCK_WIDTH*(14/20),
+      h:BLOCK_HEIGHT*(14/20),
       movex:0,
       movey:0,
       speedx:5,
