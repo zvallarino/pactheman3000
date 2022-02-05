@@ -3,9 +3,8 @@ import React, { useState, useEffect, useRef } from "react";
 function OctopusCanvas({
   octopus, wallRef, pacManRef, pacManStartPositionRef, 
   livesCount, canEatOctopusRef, SCREEN_WIDTH, 
-  SCREEN_HEIGHT}){
-
-  console.log(octopus)
+  SCREEN_HEIGHT
+}){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
@@ -54,6 +53,7 @@ function OctopusCanvas({
       drawOctopus(octopusRef)
       moveObject(octopusRef)
       boundaries(octopusRef)
+      boundariesOffCanvas(octopusRef)
       HitGhost(pacManRef, octopusRef)
       requestAnimationFrame(update)
     }
@@ -162,6 +162,17 @@ function boundaries(refObject){
   
     }
 
+    
+function boundariesOffCanvas(refObject){
+
+  if(refObject.current.x<0){
+    refObject.current.x = SCREEN_WIDTH
+  }
+  //The plus the refObject width at the end is needed so the functions dont conflict. If you remove it one side, will not work. 
+  if(refObject.current.x+refObject.current.w>SCREEN_WIDTH+refObject.current.w)
+  {refObject.current.x = 0}
+}
+
     function HitGhost(refObject,refObject2){
 
          
@@ -192,12 +203,10 @@ function OctupusEatOrNot(reference,pacman,pacmanstart, octopus,octopusStartPosit
     console.log(reference.current)
     octopus.current.x = octopusStartPosition.current.x
     octopus.current.y = octopusStartPosition.current.y
-    console.log('hello')
   }else{
     pacman.current.x = pacmanstart.current.x
     pacman.current.y = pacmanstart.current.y
      livesCount.current-=1
-    console.log('false')
   }
 }
 

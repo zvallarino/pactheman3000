@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from "react";
 
-function PlayerCanvas({wallRef, notawallRef, pacManRef, pacManStartPositionRef, SCREEN_WIDTH, SCREEN_HEIGHT}){
+function PacManCanvas({
+  wallRef, notawallRef, pacManRef, 
+  pacManStartPositionRef, SCREEN_WIDTH, SCREEN_HEIGHT
+}){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
@@ -52,6 +55,7 @@ function PlayerCanvas({wallRef, notawallRef, pacManRef, pacManStartPositionRef, 
       drawPacMan()
       moveObject(pacManRef)
       boundaries(pacManRef,wallRef)
+      boundariesOffCanvas(pacManRef,canvas)
       requestAnimationFrame(update)
     }
  
@@ -79,7 +83,6 @@ function boundaries(refObject,refObject2){
     }
 
 function borders(refObject){
-  
   if(directionRef.current === "right"){
     refObject.current.x -=refObject.current.speedx
     refObject.current.movex=0
@@ -93,6 +96,16 @@ function borders(refObject){
     refObject.current.y -=refObject.current.speedy
     refObject.current.movey = 0
   }
+}
+
+function boundariesOffCanvas(refObject){
+
+  if(refObject.current.x<0){
+    refObject.current.x = SCREEN_WIDTH
+  }
+  //The plus the refObject width at the end is needed so the functions dont conflict. If you remove it one side, will not work
+  if(refObject.current.x+refObject.current.w>SCREEN_WIDTH+refObject.current.w)
+  {refObject.current.x = 0}
 }
 
   const moveRight = (refObject) => {
@@ -162,4 +175,4 @@ function borders(refObject){
   )
 }
 
-export default PlayerCanvas;
+export default PacManCanvas;

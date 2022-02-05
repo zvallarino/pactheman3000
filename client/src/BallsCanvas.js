@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from "react";
 
-function BallsCanvas({notawallRef,pacManRef, canEatOctopusRef, SCREEN_WIDTH, SCREEN_HEIGHT}){
+function BallsCanvas({
+  notawallRef, pacManRef, canEatOctopusRef,
+  SCREEN_WIDTH, SCREEN_HEIGHT
+}
+){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)

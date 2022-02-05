@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import BlocksForGameBoard from "./BlocksForGameBoard";
 import GameArea from "./GameArea";
-import PlayerCanvas from "./PlayerCanvas";
+import PacManCanvas from "./PacManCanvas";
 import BallsCanvas from "./BallsCanvas";
 import OctopusFactory from "./OctopusFactory";
 
@@ -23,21 +23,50 @@ function Game(){
   const SCREEN_WIDTH = window.innerWidth;
   const SCREEN_HEIGHT = window.innerHeight;
 
+  const gameBoard = [
+    [1,1,1,1,1,1,1,1,1,1,1],
+    [1,0,0,0,0,1,0,0,0,0,1],
+    [1,0,1,1,0,1,0,1,1,0,1],
+    [1,0,0,0,0,0,0,0,0,0,1],
+    [1,1,1,0,1,0,1,1,1,1,1],
+    [1,0,0,0,0,0,0,0,0,0,1],
+    [0,0,0,1,0,0,0,1,0,0,0],
+    [0,0,0,1,0,0,0,1,0,0,0],
+    [1,0,0,1,0,0,0,1,0,0,1],
+    [1,0,0,1,1,1,1,1,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,1],
+    [1,1,1,1,0,1,0,1,1,1,1],
+    [1,0,0,0,0,1,0,0,0,0,1],
+    [1,0,1,1,0,1,0,1,1,0,1],
+    [1,0,0,0,0,1,0,0,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1,1]
+  ]
+
+  const gbWidth = gameBoard[0].length
+  const gbHeight = gameBoard.length
+
+  const BLOCK_WIDTH = SCREEN_WIDTH/gbWidth;
+  const BLOCK_HEIGHT = SCREEN_HEIGHT/gbHeight;
+
+
+
 
 
   return (
     <>
-    <PlayerCanvas
+    <PacManCanvas
     pacManRef = {pacManRef}
     wallRef = {wallRef}
     notawallRef = {notawallRef}
+    BLOCK_HEIGHT= {BLOCK_HEIGHT}
+    BLOCK_HEIGHT= {BLOCK_HEIGHT}
     pacManStartPositionRef = {pacManStartPositionRef} 
 
     SCREEN_WIDTH = {SCREEN_WIDTH}
     SCREEN_HEIGHT = {SCREEN_HEIGHT}
     />
 
-    <OctopusFactory
+    {/* <OctopusFactory
     wallRef = {wallRef}
     pacManRef = {pacManRef}
     pacManStartPositionRef = {pacManStartPositionRef}
@@ -46,22 +75,29 @@ function Game(){
  
     SCREEN_WIDTH = {SCREEN_WIDTH}
     SCREEN_HEIGHT = {SCREEN_HEIGHT}
-    />
+    /> */}
     
-    <BallsCanvas 
+    {/* <BallsCanvas 
     pacManRef = {pacManRef}
     notawallRef = {notawallRef} 
     canEatOctopusRef = {canEatOctopusRef}
 
+
     SCREEN_WIDTH = {SCREEN_WIDTH}
     SCREEN_HEIGHT = {SCREEN_HEIGHT}
-    />
+    /> */}
 
     <BlocksForGameBoard 
     wallRef = {wallRef}
     notawallRef = {notawallRef} 
     wallCounter = {wallCounter}
-    ballCounter ={ballCounter} 
+    ballCounter ={ballCounter}
+    gameBoard = {gameBoard}
+    gbWidth = {gbWidth}
+    gbHeight = {gbHeight}
+    
+    BLOCK_WIDTH = {BLOCK_WIDTH}
+    BLOCK_HEIGHT ={BLOCK_HEIGHT}
 
     SCREEN_WIDTH = {SCREEN_WIDTH}
     SCREEN_HEIGHT = {SCREEN_HEIGHT}

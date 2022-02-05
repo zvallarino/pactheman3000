@@ -1,6 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {  useEffect, useRef } from "react";
 
-function BlocksForGameBoard({wallRef, notawallRef, wallCounter, ballCounter, SCREEN_WIDTH, SCREEN_HEIGHT}){
+function BlocksForGameBoard({
+  wallRef, notawallRef, wallCounter,
+   ballCounter, SCREEN_WIDTH, SCREEN_HEIGHT,
+    gameBoard, gbWidth, gbHeight, 
+    BLOCK_WIDTH, BLOCK_HEIGHT
+  }){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
@@ -30,53 +35,31 @@ function BlocksForGameBoard({wallRef, notawallRef, wallCounter, ballCounter, SCR
 
   },[])
 
-  let gameBoard = [
-    [1,1,1,1,1,1,1,1,1,1,1],
-    [1,0,0,0,0,1,0,0,0,0,1],
-    [1,0,1,1,0,1,0,1,1,0,1],
-    [1,0,0,0,0,0,0,0,0,0,1],
-    [1,1,1,0,1,0,1,1,1,1,1],
-    [1,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,1,0,0,0,1,0,0,1],
-    [1,0,0,1,0,0,0,1,0,0,1],
-    [1,0,0,1,0,0,0,1,0,0,1],
-    [1,0,0,1,1,1,1,1,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,1],
-    [1,1,1,1,0,1,0,1,1,1,1],
-    [1,0,0,0,0,1,0,0,0,0,1],
-    [1,0,1,1,0,1,0,1,1,0,1],
-    [1,0,0,0,0,1,0,0,0,0,1],
-    [1,1,1,1,1,1,1,1,1,1,1]
-  ]
-
-  let gdWidth = gameBoard[0].length
-  let gbHeight = gameBoard.length
-
   const drawRectangle = (xposition,yposition,colorZ,counter) => {
 
     if(counter === ballCounter){
     contextRef.current.beginPath();
-    contextRef.current.rect(xposition, yposition, SCREEN_WIDTH/gdWidth, SCREEN_HEIGHT/gbHeight);
+    contextRef.current.rect(xposition, yposition, BLOCK_WIDTH, BLOCK_HEIGHT);
     contextRef.current.fillStyle = colorZ
     contextRef.current.fill();
     notawallRef.current[`ball${ballCounter.current}`]={}
     notawallRef.current[`ball${ballCounter.current}`].x=xposition
     notawallRef.current[`ball${ballCounter.current}`].y=yposition
-    notawallRef.current[`ball${ballCounter.current}`].h=SCREEN_HEIGHT/gbHeight
-    notawallRef.current[`ball${ballCounter.current}`].w=SCREEN_WIDTH/gdWidth
+    notawallRef.current[`ball${ballCounter.current}`].w=BLOCK_WIDTH
+    notawallRef.current[`ball${ballCounter.current}`].h=BLOCK_HEIGHT
     notawallRef.current[`ball${ballCounter.current}`].color = colorZ 
   }
 
     if(counter === wallCounter){
       contextRef.current.beginPath();
-      contextRef.current.rect(xposition, yposition, SCREEN_WIDTH/gdWidth, SCREEN_HEIGHT/gbHeight);
+      contextRef.current.rect(xposition, yposition, BLOCK_WIDTH, BLOCK_HEIGHT);
       contextRef.current.fillStyle = colorZ
       contextRef.current.fill();
       wallRef.current[`wall${wallCounter.current}`]={}
       wallRef.current[`wall${wallCounter.current}`].x=xposition
       wallRef.current[`wall${wallCounter.current}`].y=yposition
-      wallRef.current[`wall${wallCounter.current}`].h=SCREEN_HEIGHT/gbHeight
-      wallRef.current[`wall${wallCounter.current}`].w=SCREEN_WIDTH/gdWidth
+      wallRef.current[`wall${wallCounter.current}`].w=BLOCK_WIDTH
+      wallRef.current[`wall${wallCounter.current}`].h=BLOCK_HEIGHT
       wallRef.current[`wall${wallCounter.current}`].color = colorZ
     }  
   }
@@ -114,21 +97,9 @@ function BlocksForGameBoard({wallRef, notawallRef, wallCounter, ballCounter, SCR
   }
 
 
-
-
-  class TimeMap{
-    constructor(x,y,color)
-    {
-    this.x = x;
-    this.y = y;
-    this.color = color;
-    }
-  }
-
-
   return (
    <canvas
-  //  tabIndex = "0"
+
    ref = {canvasRef}
    />
   )
