@@ -4,9 +4,11 @@ import './App.css';
 import Game from './Game';
 import { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import TitleScreen from './TitleScreen';
 
 function App() {
   const [count, setCount] = useState(0);
+
 
   useEffect(() => {
     fetch("/hello")
@@ -25,7 +27,10 @@ function App() {
             <Game />
           </Route>
           <Route path="/">
-            <h1>Page Count: {count}</h1>
+           <TitleScreen />
+          </Route>
+          <Route path="/losingScreen">
+           <losingScreen />
           </Route>
         </Switch>
       </div>

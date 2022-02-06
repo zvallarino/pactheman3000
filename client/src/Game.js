@@ -1,10 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import BlocksForGameBoard from "./BlocksForGameBoard";
 import GameArea from "./GameArea";
 import PacManCanvas from "./PacManCanvas";
 import BallsCanvas from "./BallsCanvas";
 import OctopusFactory from "./OctopusFactory";
 import LivesCanvas from "./LivesCanvas";
+import LosingScreen from "./LosingScreen";
 
 function Game(){
 
@@ -17,7 +18,10 @@ function Game(){
   const pacManStartPositionRef = useRef({})
   const canEatOctopusRef = useRef(false)
 
-  const livesCount = useRef(5)
+  const livesCount = useRef(2)
+
+  const gameLostRef = useRef(false)
+  const [losingState, setLosingState] = useState(false)
 
 
   const SCREEN_WIDTH = window.innerWidth;
@@ -71,7 +75,10 @@ function Game(){
     pacManRef = {pacManRef}
     pacManStartPositionRef = {pacManStartPositionRef}
     livesCount = {livesCount}
+    gameLostRef = {gameLostRef}
+    setLosingState = {setLosingState}
     canEatOctopusRef = {canEatOctopusRef}
+
     BLOCK_WIDTH= {BLOCK_WIDTH}
     BLOCK_HEIGHT= {BLOCK_HEIGHT}
  
@@ -117,6 +124,13 @@ function Game(){
      SCREEN_WIDTH = {SCREEN_WIDTH}
      SCREEN_HEIGHT = {SCREEN_HEIGHT}
     />
+    
+    {losingState? <LosingScreen
+     SCREEN_WIDTH = {SCREEN_WIDTH}
+     SCREEN_HEIGHT = {SCREEN_HEIGHT} 
+     BLOCK_WIDTH = {BLOCK_WIDTH}
+     BLOCK_HEIGHT ={BLOCK_HEIGHT}/>:null }
+   
     </>
   )
 }

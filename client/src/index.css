@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.titlescreen{
+  display:flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: blue;
+  /* background-image: url("https://i.imgur.com/mTmGfvm.png"); */
+  box-sizing: border-box;
+  /* background-color: rgb(134, 255, 255); */
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.titlescreen{
+  display:flex;
+  width: 100vw;
+  height: 100vh;
+  /* background-color: blue; */
+  /* background-image: url("https://i.imgur.com/mTmGfvm.png"); */
+  box-sizing: border-box;
+  /* background-color: rgb(134, 255, 255); */
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+

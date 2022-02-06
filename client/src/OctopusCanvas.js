@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 function OctopusCanvas({
   octopus, wallRef, pacManRef, pacManStartPositionRef, 
   livesCount, canEatOctopusRef, SCREEN_WIDTH, 
-  SCREEN_HEIGHT
+  SCREEN_HEIGHT, gameLostRef, setLosingState
 }){
 
   const canvasRef = useRef(null)
@@ -30,9 +30,9 @@ function OctopusCanvas({
     context.scale(2,2);
     contextRef.current = context
     
-  octopusRef.current = octopus
-  octupusStartRef.current.x = octopus.x
-  octupusStartRef.current.y = octopus.y
+    octopusRef.current = octopus
+    octupusStartRef.current.x = octopus.x
+    octupusStartRef.current.y = octopus.y
 
 
 
@@ -54,7 +54,7 @@ function OctopusCanvas({
       moveObject(octopusRef)
       boundaries(octopusRef)
       boundariesOffCanvas(octopusRef)
-      HitGhost(pacManRef, octopusRef)
+      HitGhost(pacManRef, octopusRef, gameLostRef)
       requestAnimationFrame(update)
     }
 
@@ -186,7 +186,10 @@ function boundariesOffCanvas(refObject){
           refObject.current.y<refObject2.current.y+refObject2.current.h)
           {
             if(livesCount.current===0){
-
+              gameLostRef.current = true
+              setLosingState(dogs =>!dogs)
+              console.log(gameLostRef.current)
+              console.log("game over")
             }
 
             OctupusEatOrNot(canEatOctopusRef,pacManRef,pacManStartPositionRef,octopusRef,octupusStartRef)
