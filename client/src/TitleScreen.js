@@ -7,7 +7,8 @@ function TitleScreen() {
 
   return (
    <div className = "titlescreen">
-     PACMAN
+     <p>PACMAN</p>
+    
       <button onClick ={shootToLink}>
        START
       </button>
