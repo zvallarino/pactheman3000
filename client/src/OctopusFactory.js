@@ -5,7 +5,7 @@ function OctopusFactory (
   {wallRef, pacManRef, pacManStartPositionRef, 
     livesCount, canEatOctopusRef, SCREEN_WIDTH, 
     SCREEN_HEIGHT, BLOCK_WIDTH,
-    BLOCK_HEIGHT
+    BLOCK_HEIGHT, gameLostRef, setLosingState
   }){
 
 
@@ -73,62 +73,29 @@ function OctopusFactory (
     "https://i.imgur.com/EIR6NAz.png"
   )
 
+    const octopi = [redOctopus,yellowOctopus,blueOctopus,greenOctopus]
+
+    let octiCollection = octopi.map((octopus,index)=><OctopusCanvas
+    key = {index}
+    octopus = {octopus}
+
+    wallRef = {wallRef}
+    pacManRef = {pacManRef}
+    pacManStartPositionRef = {pacManStartPositionRef}
+    livesCount = {livesCount}
+    gameLostRef = {gameLostRef}
+    setLosingState = {setLosingState}
+    
+    canEatOctopusRef = {canEatOctopusRef}
+
+    SCREEN_WIDTH = {SCREEN_WIDTH}
+    SCREEN_HEIGHT = {SCREEN_HEIGHT}
+  />)
   
 
   return (
     <>
-    <OctopusCanvas
-      octopus = {redOctopus}
-
-      wallRef = {wallRef}
-      pacManRef = {pacManRef}
-      pacManStartPositionRef = {pacManStartPositionRef}
-      livesCount = {livesCount}
-      canEatOctopusRef = {canEatOctopusRef}
-  
-      SCREEN_WIDTH = {SCREEN_WIDTH}
-      SCREEN_HEIGHT = {SCREEN_HEIGHT}
-    />
-
-    <OctopusCanvas
-      octopus = {blueOctopus}
-
-      wallRef = {wallRef}
-      pacManRef = {pacManRef}
-      pacManStartPositionRef = {pacManStartPositionRef}
-      livesCount = {livesCount}
-      canEatOctopusRef = {canEatOctopusRef}
-  
-      SCREEN_WIDTH = {SCREEN_WIDTH}
-      SCREEN_HEIGHT = {SCREEN_HEIGHT}
-    />
-
-    <OctopusCanvas
-      octopus = {greenOctopus}
-
-      wallRef = {wallRef}
-      pacManRef = {pacManRef}
-      pacManStartPositionRef = {pacManStartPositionRef}
-      livesCount = {livesCount}
-      canEatOctopusRef = {canEatOctopusRef}
-  
-      SCREEN_WIDTH = {SCREEN_WIDTH}
-      SCREEN_HEIGHT = {SCREEN_HEIGHT}
-    />
-
-    <OctopusCanvas
-      octopus = {yellowOctopus}
-
-      wallRef = {wallRef}
-      pacManRef = {pacManRef}
-      pacManStartPositionRef = {pacManStartPositionRef}
-      livesCount = {livesCount}
-      canEatOctopusRef = {canEatOctopusRef}
-  
-      SCREEN_WIDTH = {SCREEN_WIDTH}
-      SCREEN_HEIGHT = {SCREEN_HEIGHT}
-    />
-    
+    {octiCollection}
     </>
 
   )
