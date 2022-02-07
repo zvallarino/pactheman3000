@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 
 function PacManCanvas({
-  wallRef, pacManRef, 
+  wallRef, pacManRef, imageRef,
   pacManStartPositionRef, SCREEN_WIDTH, SCREEN_HEIGHT,
   BLOCK_WIDTH, BLOCK_HEIGHT
 }){
@@ -9,7 +9,6 @@ function PacManCanvas({
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
   const directionRef = useRef("notMoving")
-  const imageRef = useRef("https://i.imgur.com/1qdpodV.png")
 
   useEffect(()=>{
     const canvas = canvasRef.current;

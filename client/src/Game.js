@@ -4,7 +4,7 @@ import GameArea from "./GameArea";
 import PacManCanvas from "./PacManCanvas";
 import BallsCanvas from "./BallsCanvas";
 import OctopusFactory from "./OctopusFactory";
-import LivesCanvas from "./LivesCanvas";
+import Lives from "./Lives";
 import LosingScreen from "./LosingScreen";
 
 function Game(){
@@ -16,34 +16,41 @@ function Game(){
 
   const pacManRef = useRef(null)
   const pacManStartPositionRef = useRef({})
+  const imageRef = useRef("https://i.imgur.com/1qdpodV.png")
   const canEatOctopusRef = useRef(false)
 
   const livesCount = useRef(2)
 
   const gameLostRef = useRef(false)
   const [losingState, setLosingState] = useState(false)
+  const [lostLive,setLostLifeState] = useState(false)
 
 
   const SCREEN_WIDTH = window.innerWidth;
   const SCREEN_HEIGHT = window.innerHeight;
 
   const gameBoard = [
-    [1,1,1,1,1,1,1,1,1,1,1],
-    [1,0,0,0,0,1,0,0,0,0,1],
-    [1,0,1,1,0,1,0,1,1,0,1],
-    [1,0,0,0,0,0,0,0,0,0,1],
-    [1,1,1,0,1,0,1,1,1,1,1],
-    [1,0,0,0,0,0,0,0,0,0,1],
-    [0,0,0,1,0,0,0,1,0,0,0],
-    [0,0,0,1,0,0,0,1,0,0,0],
-    [1,0,0,1,0,0,0,1,0,0,1],
-    [1,0,0,1,1,1,1,1,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,1],
-    [1,1,1,1,0,1,0,1,1,1,1],
-    [1,0,0,0,0,1,0,0,0,0,1],
-    [1,0,1,1,0,1,0,1,1,0,1],
-    [1,0,0,0,0,1,0,0,0,0,1],
-    [1,1,1,1,1,1,1,1,1,1,1]
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
+    [1,2,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,0,1],
+    [1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1],
+    [1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1],
+    [1,1,1,1,0,1,0,0,0,0,0,0,0,1,0,1,1,1,1],
+    [1,1,1,1,0,1,0,1,0,0,0,1,0,1,0,1,1,1,1],
+    [0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0],
+    [1,1,1,1,0,1,0,1,0,0,0,1,0,1,0,1,1,1,1],
+    [1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1],
+    [1,1,1,1,0,1,0,0,0,0,0,0,0,1,0,1,1,1,1],
+    [1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1],
+    [1,0,1,1,0,1,0,0,0,1,0,0,0,0,0,1,1,0,1],
+    [1,0,0,1,0,1,1,1,0,1,0,1,1,1,0,1,0,0,1],
+    [1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1],
+    [1,0,0,0,0,1,0,1,1,1,1,1,0,1,0,0,0,0,1],
+    [1,0,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,0,1],
+    [1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
   ]
 
   const gbWidth = gameBoard[0].length
@@ -61,6 +68,7 @@ function Game(){
     <PacManCanvas
     pacManRef = {pacManRef}
     wallRef = {wallRef}
+    imageRef = {imageRef}
     notawallRef = {notawallRef}
     BLOCK_WIDTH= {BLOCK_WIDTH}
     BLOCK_HEIGHT= {BLOCK_HEIGHT}
@@ -77,6 +85,7 @@ function Game(){
     livesCount = {livesCount}
     gameLostRef = {gameLostRef}
     setLosingState = {setLosingState}
+    setLostLifeState = {setLostLifeState}
     canEatOctopusRef = {canEatOctopusRef}
 
     BLOCK_WIDTH= {BLOCK_WIDTH}
@@ -115,14 +124,19 @@ function Game(){
     />
     
     <GameArea
-    
     SCREEN_WIDTH = {SCREEN_WIDTH}
     SCREEN_HEIGHT = {SCREEN_HEIGHT}
     />
 
-    <LivesCanvas 
-     SCREEN_WIDTH = {SCREEN_WIDTH}
-     SCREEN_HEIGHT = {SCREEN_HEIGHT}
+    <Lives
+    SCREEN_WIDTH = {SCREEN_WIDTH}
+    SCREEN_HEIGHT = {SCREEN_HEIGHT}
+    livesCount = {livesCount}
+    lostLive = {lostLive}
+    imageRef = {imageRef}
+
+    BLOCK_WIDTH= {BLOCK_WIDTH}
+    BLOCK_HEIGHT= {BLOCK_HEIGHT}
     />
     
     {losingState? <LosingScreen

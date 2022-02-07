@@ -50,8 +50,26 @@ function BallsCanvas({
           {
             contextRef.current.beginPath();
             contextRef.current.rect(refObject2.current[key].x, refObject2.current[key].y, refObject2.current[key].w, refObject2.current[key].h);
-            contextRef.current.fillStyle = "white"
+            contextRef.current.fillStyle = "black"
             contextRef.current.fill();
+
+
+            //
+
+            // const drawSquares = () => {
+            //   let squareZ = new Image();
+            //   squareZ.src = imageRef.current
+            //   squareZ.onload = function(){
+            //     contextRef.current.drawImage(squareZ,xposition,yposition,BLOCK_WIDTH,BLOCK_HEIGHT)
+            //   }
+            // }
+        
+            // drawSquares()
+            
+
+
+
+
 
             ArrayXYBuilder(refObject2.current[key].x,refObject2.current[key].y,arrayOfWhiteXY)
             speedBallChecker(refObject2.current[key])

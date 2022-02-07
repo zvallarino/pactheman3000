@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 function OctopusCanvas({
   octopus, wallRef, pacManRef, pacManStartPositionRef, 
   livesCount, canEatOctopusRef, SCREEN_WIDTH, 
-  SCREEN_HEIGHT, gameLostRef, setLosingState
+  SCREEN_HEIGHT, gameLostRef, setLosingState, setLostLifeState
 }){
 
   const canvasRef = useRef(null)
@@ -210,6 +210,7 @@ function OctupusEatOrNot(reference,pacman,pacmanstart, octopus,octopusStartPosit
     pacman.current.x = pacmanstart.current.x
     pacman.current.y = pacmanstart.current.y
      livesCount.current-=1
+     setLostLifeState(dogs =>!dogs)
   }
 }
 
