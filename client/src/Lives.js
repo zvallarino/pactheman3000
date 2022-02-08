@@ -8,6 +8,9 @@ function Lives ({
   livesCount, lostLive
 }){
 
+const newArrayRef = useRef([])
+
+
 useEffect(()=>{
 
 
@@ -16,31 +19,52 @@ useEffect(()=>{
 let times = livesCount.current;
 let newArray = []
 
-const ArrayConverter = () => {
-  for(let i = 0; i < times; i++){
-  newArray.push(i)}
-  return newArray
+
+
+if(livesCount.current + 1 ===3){
+
+  newArrayRef.current = [0,1]
+}else if(livesCount.current + 1 ===2){
+  newArrayRef.current = [0]
+}
+else if (livesCount.current + 1 ===1){
+  newArrayRef.current = []
+}
+else if (livesCount.current + 1 ===0){
+  return false;
 }
 
 
+// let Lives = 
+// newArrayRef.current.map((octopusNumber,i)=><LivesCanvas 
+// octopusNumber={octopusNumber}
 
-let Lives = 
-ArrayConverter().map((octopusNumber,i)=><LivesCanvas 
-octopus={octopusNumber}
+// SCREEN_WIDTH = {SCREEN_WIDTH}
+// SCREEN_HEIGHT = {SCREEN_HEIGHT}
+// livesCount = {livesCount}
+// imageRef = {imageRef}
+// lostLive = {lostLive}
+// key = {i++}
+
+// BLOCK_WIDTH= {BLOCK_WIDTH}
+// BLOCK_HEIGHT= {BLOCK_HEIGHT}
+// />)
+
+
+
+  return (
+    <>
+ <LivesCanvas 
+
 SCREEN_WIDTH = {SCREEN_WIDTH}
 SCREEN_HEIGHT = {SCREEN_HEIGHT}
 livesCount = {livesCount}
 imageRef = {imageRef}
 lostLive = {lostLive}
-key = {i++}
 
 BLOCK_WIDTH= {BLOCK_WIDTH}
 BLOCK_HEIGHT= {BLOCK_HEIGHT}
-/>)
-
-  return (
-    <>
-  {Lives}
+/>
     </>
 
   )

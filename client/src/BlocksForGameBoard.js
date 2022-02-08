@@ -9,6 +9,7 @@ function BlocksForGameBoard({
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
   const imageRef = useRef("https://i.imgur.com/J6RaE26.png")
+  const speedBallImageRef = useRef("https://i.imgur.com/j8hE3xf.png")
   
 
 
@@ -48,7 +49,18 @@ function BlocksForGameBoard({
       }
     }
 
-    drawSquares()
+    
+    const drawSpeedBalls = () => {
+      let squareZ = new Image();
+      squareZ.src = speedBallImageRef.current
+      squareZ.onload = function(){
+        contextRef.current.drawImage(squareZ,xposition,yposition,BLOCK_WIDTH,BLOCK_HEIGHT)
+      }
+    }
+    
+    if(colorZ==="purple"){drawSpeedBalls()}else{drawSquares()}
+
+
     
 
 
