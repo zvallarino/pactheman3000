@@ -15,6 +15,9 @@ function OctopusCanvas({
   const imageRef = useRef("https://i.imgur.com/OYefjqj.png")
 
 
+  //blue octo = https://i.imgur.com/NAirK0Z.png
+
+
   useEffect(()=>{
     const canvas = canvasRef.current;
     canvas.width = SCREEN_WIDTH * 2;
@@ -33,7 +36,7 @@ function OctopusCanvas({
     octopusRef.current = octopus
     octupusStartRef.current.x = octopus.x
     octupusStartRef.current.y = octopus.y
-
+    imageRef.current = octopusRef.current.image
 
 
 
@@ -46,6 +49,14 @@ function OctopusCanvas({
         contextRef.current.drawImage(octo,octopusRef.current.x,octopusRef.current.y,octopusRef.current.w,octopusRef.current.h)
       }
     }
+
+    const blueOctopus = (refObject)=>{
+      if(refObject.current.speedx===15){
+        octopusRef.current.image = "https://i.imgur.com/NAirK0Z.png"
+      }else{
+        octopusRef.current.image = imageRef.current
+      }
+    }
     
 
     
@@ -53,9 +64,11 @@ function OctopusCanvas({
       drawOctopus(octopusRef)
       moveObject(octopusRef)
       boundaries(octopusRef)
+      blueOctopus(pacManRef)
       boundariesOffCanvas(octopusRef)
+
       HitGhost(pacManRef, octopusRef, gameLostRef)
-      requestAnimationFrame(update)
+      requestAnimationFrame(update) 
     }
 
     
@@ -64,7 +77,11 @@ function OctopusCanvas({
     update()
     moveUp(octopusRef)
 
+
+
   },[])
+
+
 
   const directionalArray = ["up","down","left","right"]
 

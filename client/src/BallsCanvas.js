@@ -1,14 +1,20 @@
 import React, { useEffect, useRef } from "react";
 
+
+
+
 function BallsCanvas({
   notawallRef, pacManRef, canEatOctopusRef,
-  SCREEN_WIDTH, SCREEN_HEIGHT
+  SCREEN_WIDTH, SCREEN_HEIGHT, score
 }
 ){
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
   const arrayOfWhiteXY = useRef([])
+
+
+
 
   useEffect(()=>{
     const canvas = canvasRef.current;
@@ -51,9 +57,12 @@ function BallsCanvas({
             contextRef.current.beginPath();
             contextRef.current.rect(refObject2.current[key].x, refObject2.current[key].y, refObject2.current[key].w, refObject2.current[key].h);
             contextRef.current.fillStyle = "black"
-            contextRef.current.fill();
+            contextRef.current.fill();  
 
             ArrayXYBuilder(refObject2.current[key].x,refObject2.current[key].y,arrayOfWhiteXY)
+            score.current =(arrayOfWhiteXY.current.length)*10
+            console.log(score.current)
+   
             speedBallChecker(refObject2.current[key])
     
             WinGame(refObject2)
@@ -100,9 +109,11 @@ function BallsCanvas({
 
   
   return (
+    <>
    <canvas
    ref = {canvasRef}
    />
+   </>
   )
 }
 
