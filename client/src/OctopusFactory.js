@@ -5,7 +5,7 @@ function OctopusFactory (
   {wallRef, pacManRef, pacManStartPositionRef, 
     livesCount, canEatOctopusRef, SCREEN_WIDTH, 
     SCREEN_HEIGHT, BLOCK_WIDTH,
-    BLOCK_HEIGHT, gameLostRef, setLosingState, setLostLifeState
+    BLOCK_HEIGHT, gameLostRef, setLosingState, setLostLifeState, octopusHit
   }){
 
 
@@ -78,6 +78,8 @@ function OctopusFactory (
     let octiCollection = octopi.map((octopus,index)=><OctopusCanvas
     key = {index}
     octopus = {octopus}
+    octopusHit = {octopusHit}
+    
 
     wallRef = {wallRef}
     pacManRef = {pacManRef}

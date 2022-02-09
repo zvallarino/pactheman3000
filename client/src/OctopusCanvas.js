@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 function OctopusCanvas({
   octopus, wallRef, pacManRef, pacManStartPositionRef, 
   livesCount, canEatOctopusRef, SCREEN_WIDTH, 
-  SCREEN_HEIGHT, gameLostRef, setLosingState, setLostLifeState
+  SCREEN_HEIGHT, gameLostRef, setLosingState, setLostLifeState,octopusHit
 }){
 
   const canvasRef = useRef(null)
@@ -205,6 +205,7 @@ function boundariesOffCanvas(refObject){
             if(livesCount.current===0){
               gameLostRef.current = true
               setLosingState(dogs =>!dogs)
+        
               console.log(gameLostRef.current)
               console.log("game over")
             }
@@ -220,7 +221,7 @@ function boundariesOffCanvas(refObject){
 
 function OctupusEatOrNot(reference,pacman,pacmanstart, octopus,octopusStartPosition){
   if(reference.current){
-    console.log(reference.current)
+    octopusHit.current +=1
     octopus.current.x = octopusStartPosition.current.x
     octopus.current.y = octopusStartPosition.current.y
   }else{

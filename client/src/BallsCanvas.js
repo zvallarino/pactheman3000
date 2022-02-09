@@ -1,11 +1,8 @@
 import React, { useEffect, useRef } from "react";
 
-
-
-
 function BallsCanvas({
   notawallRef, pacManRef, canEatOctopusRef,
-  SCREEN_WIDTH, SCREEN_HEIGHT, score
+  SCREEN_WIDTH, SCREEN_HEIGHT, score, setScoreChange, setterOfVictory
 }
 ){
 
@@ -60,9 +57,14 @@ function BallsCanvas({
             contextRef.current.fill();  
 
             ArrayXYBuilder(refObject2.current[key].x,refObject2.current[key].y,arrayOfWhiteXY)
+
+            //So its just covering each ball with a black rectangle so in order to count the score correctly.
+            //created an array of unique squares related to the new covered
+            // That arrays length times ten is the score at any given time
+            
             score.current =(arrayOfWhiteXY.current.length)*10
-            console.log(score.current)
-   
+            setScoreChange(whales => !whales)
+
             speedBallChecker(refObject2.current[key])
     
             WinGame(refObject2)
@@ -89,7 +91,8 @@ function BallsCanvas({
 
         function WinGame (refObject2){
           if((Object.keys(refObject2.current).length)===arrayOfWhiteXY.current.length){
-            console.log("you won")
+            setterOfVictory(true)
+            console.log('you won')
           }
         }
 

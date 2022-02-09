@@ -44,3 +44,149 @@ code {
 }
 
 
+.overallBoxforScoreBoard{
+  display:flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+
+}
+
+.scoreboard{
+  display:flex;
+  box-sizing: border-box;
+  width: 50vw;
+  height: 90vh;
+  font-family: 'Press Start 2P', cursive;
+  /* background-color: yellow; */
+  border: 10px;
+  flex-direction: column;
+  font-size: 1.2em;
+
+  box-sizing: border-box;
+
+  align-items: flex-start;
+  margin-left: 0.5em;
+  margin-top: 0.7em;
+
+}
+
+.spaceingBox{
+  display:flex;
+  box-sizing: border-box;
+  width: 25vw;
+  height: 100vh;
+  font-family: 'Press Start 2P', cursive;
+  /* background-color: blue; */
+
+  border: 10px;
+  flex-direction: column;
+  /* background-image: url("https://i.imgur.com/mTmGfvm.png"); */
+  box-sizing: border-box;
+  /* background-color: rgb(134, 255, 255); */
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+
+.overallBoxforScoreBoard{
+  display:flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+
+}
+
+.scoreboard{
+  display:flex;
+  box-sizing: border-box;
+  width: 50vw;
+  height: 90vh;
+  font-family: 'Press Start 2P', cursive;
+  /* background-color: yellow; */
+  border: 10px;
+  flex-direction: column;
+  font-size: 1.2em;
+  box-sizing: border-box;
+  align-items: flex-start;
+  margin-left: 0.5em;
+  margin-top: 0.7em;
+
+}
+
+.spaceingBox{
+  display:flex;
+  box-sizing: border-box;
+  width: 25vw;
+  height: 100vh;
+  font-family: 'Press Start 2P', cursive;
+  /* background-color: blue; */
+
+  border: 10px;
+  flex-direction: column;
+  /* background-image: url("https://i.imgur.com/mTmGfvm.png"); */
+  box-sizing: border-box;
+  /* background-color: rgb(134, 255, 255); */
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.winningScreen{
+  display:flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  
+background-color: yellow;
+  /* border: 10px solid red; */
+}
+
+.winningspaceingBox{
+  display:flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 30vh;
+
+  /* border: 10px solid blue; */
+}
+
+.winningInnerBox{
+  display:flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 70vh;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2em;
+  /* justify-content: center; */
+  /* border: 10px solid green; */
+}
+
+.winningInnerBox button{
+  margin-top: 2%;
+  width: 10vw;
+  font-size: 1.2em;
+  border: 10px solid black;
+  border-radius: 15%;
+  margin-left: 45%;
+  font-family: 'Press Start 2P', cursive;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+
+
+}
+
+
+
+
