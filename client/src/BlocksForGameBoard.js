@@ -8,6 +8,9 @@ function BlocksForGameBoard({
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
+  const imageRef = useRef("https://i.imgur.com/J6RaE26.png")
+  const speedBallImageRef = useRef("https://i.imgur.com/j8hE3xf.png")
+  
 
 
   useEffect(()=>{
@@ -16,7 +19,7 @@ function BlocksForGameBoard({
     canvas.height = SCREEN_HEIGHT *2;
     canvas.style.width = `${SCREEN_WIDTH *(10/20)}px`
     canvas.style.height = `${SCREEN_HEIGHT*(18/20)}px`
-    canvas.style.backgroundColor = "yellow";
+    canvas.style.backgroundColor = "black";
     canvas.style.position = "absolute";
     canvas.style.left = `${SCREEN_WIDTH*(5/20)}px`;
     canvas.style.top = `${SCREEN_HEIGHT*(1/20)}px`;
@@ -37,10 +40,30 @@ function BlocksForGameBoard({
   const drawRectangle = (xposition,yposition,colorZ,counter) => {
 
     if(counter === ballCounter){
-    contextRef.current.beginPath();
-    contextRef.current.rect(xposition, yposition, BLOCK_WIDTH, BLOCK_HEIGHT);
-    contextRef.current.fillStyle = colorZ
-    contextRef.current.fill();
+
+    const drawSquares = () => {
+      let squareZ = new Image();
+      squareZ.src = imageRef.current
+      squareZ.onload = function(){
+        contextRef.current.drawImage(squareZ,xposition,yposition,BLOCK_WIDTH,BLOCK_HEIGHT)
+      }
+    }
+
+    
+    const drawSpeedBalls = () => {
+      let squareZ = new Image();
+      squareZ.src = speedBallImageRef.current
+      squareZ.onload = function(){
+        contextRef.current.drawImage(squareZ,xposition,yposition,BLOCK_WIDTH,BLOCK_HEIGHT)
+      }
+    }
+    
+    if(colorZ==="purple"){drawSpeedBalls()}else{drawSquares()}
+
+
+    
+
+
     notawallRef.current[`ball${ballCounter.current}`]={}
     notawallRef.current[`ball${ballCounter.current}`].x=xposition
     notawallRef.current[`ball${ballCounter.current}`].y=yposition

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 function OctopusCanvas({
   octopus, wallRef, pacManRef, pacManStartPositionRef, 
   livesCount, canEatOctopusRef, SCREEN_WIDTH, 
-  SCREEN_HEIGHT, gameLostRef, setLosingState
+  SCREEN_HEIGHT, gameLostRef, setLosingState, setLostLifeState,octopusHit
 }){
 
   const canvasRef = useRef(null)
@@ -13,6 +13,9 @@ function OctopusCanvas({
   const octupusStartRef = useRef({})
   const directionRef = useRef("up")
   const imageRef = useRef("https://i.imgur.com/OYefjqj.png")
+
+
+  //blue octo = https://i.imgur.com/NAirK0Z.png
 
 
   useEffect(()=>{
@@ -33,7 +36,7 @@ function OctopusCanvas({
     octopusRef.current = octopus
     octupusStartRef.current.x = octopus.x
     octupusStartRef.current.y = octopus.y
-
+    imageRef.current = octopusRef.current.image
 
 
 
@@ -46,6 +49,14 @@ function OctopusCanvas({
         contextRef.current.drawImage(octo,octopusRef.current.x,octopusRef.current.y,octopusRef.current.w,octopusRef.current.h)
       }
     }
+
+    const blueOctopus = (refObject)=>{
+      if(refObject.current.speedx===15){
+        octopusRef.current.image = "https://i.imgur.com/NAirK0Z.png"
+      }else{
+        octopusRef.current.image = imageRef.current
+      }
+    }
     
 
     
@@ -53,9 +64,11 @@ function OctopusCanvas({
       drawOctopus(octopusRef)
       moveObject(octopusRef)
       boundaries(octopusRef)
+      blueOctopus(pacManRef)
       boundariesOffCanvas(octopusRef)
+
       HitGhost(pacManRef, octopusRef, gameLostRef)
-      requestAnimationFrame(update)
+      requestAnimationFrame(update) 
     }
 
     
@@ -64,7 +77,11 @@ function OctopusCanvas({
     update()
     moveUp(octopusRef)
 
+
+
   },[])
+
+
 
   const directionalArray = ["up","down","left","right"]
 
@@ -188,6 +205,7 @@ function boundariesOffCanvas(refObject){
             if(livesCount.current===0){
               gameLostRef.current = true
               setLosingState(dogs =>!dogs)
+        
               console.log(gameLostRef.current)
               console.log("game over")
             }
@@ -203,13 +221,14 @@ function boundariesOffCanvas(refObject){
 
 function OctupusEatOrNot(reference,pacman,pacmanstart, octopus,octopusStartPosition){
   if(reference.current){
-    console.log(reference.current)
+    octopusHit.current +=1
     octopus.current.x = octopusStartPosition.current.x
     octopus.current.y = octopusStartPosition.current.y
   }else{
     pacman.current.x = pacmanstart.current.x
     pacman.current.y = pacmanstart.current.y
      livesCount.current-=1
+     setLostLifeState(dogs =>!dogs)
   }
 }
 

@@ -1,15 +1,21 @@
 import React, { useEffect, useRef } from "react";
+import munch from './sounds/munch_1.wav';
+import useSound from 'use-sound';
 
 function PacManCanvas({
-  wallRef, pacManRef, 
+  wallRef, pacManRef, imageRef,
   pacManStartPositionRef, SCREEN_WIDTH, SCREEN_HEIGHT,
-  BLOCK_WIDTH, BLOCK_HEIGHT
+  BLOCK_WIDTH, BLOCK_HEIGHT, setIsPlaying,
+
 }){
+
+  const [eatDot] = useSound(munch)
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
   const directionRef = useRef("notMoving")
-  const imageRef = useRef("https://i.imgur.com/1qdpodV.png")
+  //right//down//left//up
+  const pacManDirectionalArray = ["https://i.imgur.com/QLh02TY.png","https://i.imgur.com/AWPDTiE.png","https://i.imgur.com/1qdpodV.png","https://i.imgur.com/v5rrjtA.png"]
 
   useEffect(()=>{
     const canvas = canvasRef.current;
@@ -58,11 +64,24 @@ function PacManCanvas({
       boundaries(pacManRef,wallRef)
       boundariesOffCanvas(pacManRef,canvas)
       requestAnimationFrame(update)
+      pacManDirectionalImage()
     }
  
     update()
 
   },[])
+
+function pacManDirectionalImage(){
+  if(directionRef.current === "up"){
+    imageRef.current = pacManDirectionalArray[3]
+  }else if (directionRef.current === "down"){
+    imageRef.current = pacManDirectionalArray[1]
+  } else if (directionRef.current === "left"){
+    imageRef.current = pacManDirectionalArray[2]
+  } else {
+    imageRef.current = pacManDirectionalArray[0]
+  }
+}
 
 function boundaries(refObject,refObject2){
   let i = 1;
@@ -147,12 +166,14 @@ function boundariesOffCanvas(refObject){
   const moveObject = (refObject) => {
     refObject.current.x += refObject.current.movex
     refObject.current.y += refObject.current.movey
+
   }
 
   const movementFunction = (e) => {
 
     if(e.key === "d"){
       moveRight(pacManRef)
+      setIsPlaying(true)
     }else if(e.key === "a"){
       moveLeft(pacManRef)
     }else if(e.key === "s"){

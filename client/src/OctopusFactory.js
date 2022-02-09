@@ -5,7 +5,7 @@ function OctopusFactory (
   {wallRef, pacManRef, pacManStartPositionRef, 
     livesCount, canEatOctopusRef, SCREEN_WIDTH, 
     SCREEN_HEIGHT, BLOCK_WIDTH,
-    BLOCK_HEIGHT, gameLostRef, setLosingState
+    BLOCK_HEIGHT, gameLostRef, setLosingState, setLostLifeState, octopusHit
   }){
 
 
@@ -26,8 +26,8 @@ function OctopusFactory (
   }
 
   let greenOctopus = new Octopus(
-    BLOCK_WIDTH*5+(BLOCK_WIDTH*3/20),
-    BLOCK_HEIGHT*5+(BLOCK_HEIGHT*2/20),
+    BLOCK_WIDTH*9+(BLOCK_WIDTH*3/20),
+    BLOCK_HEIGHT*7+(BLOCK_HEIGHT*2/20),
     BLOCK_WIDTH*(14/20),
     BLOCK_HEIGHT*(14/20),
     0,
@@ -38,8 +38,8 @@ function OctopusFactory (
   )
 
   let blueOctopus = new Octopus(
-    BLOCK_WIDTH*4+(BLOCK_WIDTH*3/20),
-    BLOCK_HEIGHT*7+(BLOCK_HEIGHT*2/20),
+    BLOCK_WIDTH*8+(BLOCK_WIDTH*3/20),
+    BLOCK_HEIGHT*10+(BLOCK_HEIGHT*2/20),
     BLOCK_WIDTH*(14/20),
     BLOCK_HEIGHT*(14/20),
     0,
@@ -50,8 +50,8 @@ function OctopusFactory (
   )
 
   let yellowOctopus = new Octopus(
-    BLOCK_WIDTH*5+(BLOCK_WIDTH*3/20),
-    BLOCK_HEIGHT*7+(BLOCK_HEIGHT*2/20),
+    BLOCK_WIDTH*9+(BLOCK_WIDTH*3/20),
+    BLOCK_HEIGHT*10+(BLOCK_HEIGHT*2/20),
     BLOCK_WIDTH*(14/20),
     BLOCK_HEIGHT*(14/20),
     0,
@@ -62,8 +62,8 @@ function OctopusFactory (
   )
 
   let redOctopus = new Octopus(
-    BLOCK_WIDTH*6+(BLOCK_WIDTH*3/20),
-    BLOCK_HEIGHT*7+(BLOCK_HEIGHT*2/20),
+    BLOCK_WIDTH*10+(BLOCK_WIDTH*3/20),
+    BLOCK_HEIGHT*10+(BLOCK_HEIGHT*2/20),
     BLOCK_WIDTH*(14/20),
     BLOCK_HEIGHT*(14/20),
     0,
@@ -78,6 +78,8 @@ function OctopusFactory (
     let octiCollection = octopi.map((octopus,index)=><OctopusCanvas
     key = {index}
     octopus = {octopus}
+    octopusHit = {octopusHit}
+    
 
     wallRef = {wallRef}
     pacManRef = {pacManRef}
@@ -85,6 +87,7 @@ function OctopusFactory (
     livesCount = {livesCount}
     gameLostRef = {gameLostRef}
     setLosingState = {setLosingState}
+    setLostLifeState = {setLostLifeState}
     
     canEatOctopusRef = {canEatOctopusRef}
 
