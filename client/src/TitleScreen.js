@@ -10,10 +10,10 @@ function TitleScreen() {
 
   
   const shootToLink = (e) => {
-    // starterSound()
+    starterSound()
     setTimeout(()=>{
       window.location.href = "/pacman"
-    },500)
+    },4000)
     
 
   }
