@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 function GameArea({SCREEN_WIDTH, SCREEN_HEIGHT}){
 

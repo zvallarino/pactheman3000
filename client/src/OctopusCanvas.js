@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 function OctopusCanvas({
   octopus, wallRef, pacManRef, pacManStartPositionRef, 
@@ -161,7 +161,6 @@ const moveOctupus = (directionIndex,refObject) =>{
   
 
 function boundaries(refObject){
-  let i = 1;
   for (let key in wallRef.current){
       if(
           refObject.current.y > wallRef.current[key].y + wallRef.current[key].h

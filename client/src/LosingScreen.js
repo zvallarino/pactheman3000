@@ -31,7 +31,7 @@ function LosingScreen({
   },[])
 
   const drawText1 = () => {
-    contextRef.current.font = "small-caps bold 40px/1 sans-serif"
+    contextRef.current.font = "small-caps bold 40px/1 'Press Start 2P', cursive"
     contextRef.current.lineWidth = 1
     contextRef.current.fillStyle = 'red'
     contextRef.current.fillText("GAME OVER",BLOCK_WIDTH*8.0, BLOCK_HEIGHT*10)

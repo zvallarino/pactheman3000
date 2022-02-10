@@ -9,8 +9,6 @@ function PacManCanvas({
 
 }){
 
-  const [eatDot] = useSound(munch)
-
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
   const directionRef = useRef("notMoving")

@@ -7,8 +7,8 @@ import OctopusFactory from "./OctopusFactory";
 import LosingScreen from "./LosingScreen";
 import LivesCanvas from "./LivesCanvas";
 import ScoreBoard from "./ScoreBoard";
-import Sounds from "./Sounds";
-import WinningScreen from "./WinningCanvas";
+
+import WinningCanvas from "./WinningCanvas";
 
 function Game(){
 
@@ -42,7 +42,7 @@ function Game(){
 
 
   //Sound
-  const [isPlaying,setIsPlaying] = useState(false)
+
   
 
   const SCREEN_WIDTH = window.innerWidth;
@@ -79,21 +79,19 @@ function Game(){
   const BLOCK_HEIGHT = SCREEN_HEIGHT/gbHeight;
 
 
-  // if(GameVictory){
-       
-  //   return(
-  //  <WinningScreen 
-  //   SCREEN_WIDTH = {SCREEN_WIDTH}
-  //   SCREEN_HEIGHT = {SCREEN_HEIGHT}
-  //   BLOCK_WIDTH= {BLOCK_WIDTH}
-  //   BLOCK_HEIGHT= {BLOCK_HEIGHT}
-  //  totalScoreRef = {totalScoreRef}
-  //  />
-  // ) }
 
 
   return (
     <>
+
+    {GameVictory?<WinningCanvas
+      SCREEN_WIDTH = {SCREEN_WIDTH}
+      SCREEN_HEIGHT = {SCREEN_HEIGHT}
+      BLOCK_WIDTH= {BLOCK_WIDTH}
+      BLOCK_HEIGHT= {BLOCK_HEIGHT}
+      totalScoreRef = {totalScoreRef}
+      pacManRef = {pacManRef}
+    />:null}
 
     
    <ScoreBoard 
@@ -106,10 +104,7 @@ function Game(){
       totalScoreRef = {totalScoreRef}
       octopusHit = {octopusHit}
     />
-   {/* <Sounds
-    isPlaying = {isPlaying}
-    setIsPlaying = {setIsPlaying}
-    /> */}
+  
   <PacManCanvas
     pacManRef = {pacManRef}
     wallRef = {wallRef}
@@ -117,7 +112,7 @@ function Game(){
     notawallRef = {notawallRef}
     BLOCK_WIDTH= {BLOCK_WIDTH}
     BLOCK_HEIGHT= {BLOCK_HEIGHT}
-    setIsPlaying = {setIsPlaying}
+
     pacManStartPositionRef = {pacManStartPositionRef}
     
 
@@ -194,6 +189,11 @@ function Game(){
      SCREEN_HEIGHT = {SCREEN_HEIGHT} 
      BLOCK_WIDTH = {BLOCK_WIDTH}
      BLOCK_HEIGHT ={BLOCK_HEIGHT}/>:null } 
+
+    {/* <Sounds
+    isPlaying = {isPlaying}
+    setIsPlaying = {setIsPlaying}
+    /> */}
     
     </>
   )
