@@ -60,7 +60,7 @@ function BallsCanvas({
 
             //So its just covering each ball with a black rectangle so in order to count the score correctly.
             //created an array of unique squares related to the new covered
-            // That arrays length times ten is the score at any given time
+            // That arrays length times ten is the score at any given time!
             
             score.current =(arrayOfWhiteXY.current.length)*10
             setScoreChange(whales => !whales)
