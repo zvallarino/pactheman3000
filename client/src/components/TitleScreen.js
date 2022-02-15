@@ -1,4 +1,4 @@
-import startSound from './sounds/game_start.wav';
+import startSound from '../sounds/game_start.wav';
 import useSound from 'use-sound';
 
 function TitleScreen() {

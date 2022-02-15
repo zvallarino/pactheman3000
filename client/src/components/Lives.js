@@ -10,16 +10,10 @@ function Lives ({
 
 const newArrayRef = useRef([])
 
-
 useEffect(()=>{
 
 
 },[lostLive])
-
-let times = livesCount.current;
-let newArray = []
-
-
 
 if(livesCount.current + 1 ===3){
 
@@ -33,25 +27,6 @@ else if (livesCount.current + 1 ===1){
 else if (livesCount.current + 1 ===0){
   return false;
 }
-
-
-// let Lives = 
-// newArrayRef.current.map((octopusNumber,i)=><LivesCanvas 
-// octopusNumber={octopusNumber}
-
-// SCREEN_WIDTH = {SCREEN_WIDTH}
-// SCREEN_HEIGHT = {SCREEN_HEIGHT}
-// livesCount = {livesCount}
-// imageRef = {imageRef}
-// lostLive = {lostLive}
-// key = {i++}
-
-// BLOCK_WIDTH= {BLOCK_WIDTH}
-// BLOCK_HEIGHT= {BLOCK_HEIGHT}
-// />)
-
-
-
   return (
     <>
  <LivesCanvas 

@@ -1,14 +1,10 @@
 import React, { useEffect, useRef } from "react";
 
 function WinningCanvas({
-   score, scoreChange, octopusHit,totalScoreRef, SCREEN_WIDTH, SCREEN_HEIGHT,
+  scoreChange, totalScoreRef, SCREEN_WIDTH, SCREEN_HEIGHT,
    BLOCK_WIDTH, BLOCK_HEIGHT, pacManRef
 }){
 
-  // console.log(pacManRef.current.speedx)
-  // console.log(pacManRef.current.speedy)
-  console.log(pacManRef.current.x)
-  console.log(pacManRef.current.y)
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
@@ -54,12 +50,7 @@ function WinningCanvas({
   
   
   const shootToLink = (e) => {
-    // starterSound()
-
       window.location.href = "/"
-   
-    
-
   }
 
 
