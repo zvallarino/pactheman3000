@@ -5,9 +5,6 @@ function GameArea({SCREEN_WIDTH, SCREEN_HEIGHT}){
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
 
-  
-
-
   useEffect(()=>{
     const canvas = canvasRef.current;
     canvas.width = SCREEN_WIDTH * 2;

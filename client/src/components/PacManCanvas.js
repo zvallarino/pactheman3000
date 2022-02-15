@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import munch from './sounds/munch_1.wav';
-import useSound from 'use-sound';
+
 
 function PacManCanvas({
   wallRef, pacManRef, imageRef,

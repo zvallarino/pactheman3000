@@ -45,8 +45,8 @@ function Game(){
 
   
 
-  const SCREEN_WIDTH = window.innerWidth;
-  const SCREEN_HEIGHT = window.innerHeight;
+    const SCREEN_WIDTH = window.innerWidth;
+    const SCREEN_HEIGHT = window.innerHeight;
 
   const gameBoard = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],

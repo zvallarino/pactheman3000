@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import munch from './sounds/munch_1.wav';
+// import munch from './sounds/munch_1.wav';
 import useSound from 'use-sound';
 
 
